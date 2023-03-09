@@ -3,11 +3,41 @@ import {  useNavigate } from "react-router-dom";
 import {  useState } from 'react';
 import React from 'react';
 import { ModalWarning } from '../ModalWarning';
+import axios from 'axios';
 
 
 export const Login= () => {
 
    const API_URL = "http://localhost:3001";
+
+   const instanceAPI = axios.create({
+    //withCredentials: true,
+    baseURL: process.env.API_URL
+    //headers: {}
+    });
+
+    instanceAPI.interceptors.request.use(function (config) {
+
+        config.headers.authorization = `Bearer ${sessionStorage.getItem('token')}`
+        return config;
+    }, function (error) {
+        // Do something with request error
+        console.log('Ошибка в axios интерсепторе ')
+        console.log(error)
+        return Promise.reject(error);
+    });
+    instanceAPI.interceptors.response.use(response => response, error => {
+        const status = error.response ? error.response.status : null
+    
+    
+        if (status === 401) {
+            sessionStorage.removeItem('token')
+        }
+        return Promise.reject(error);
+    });
+    
+
+
 
    const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -19,10 +49,10 @@ export const Login= () => {
     const saveData = (data) => {
     
             
-            sessionStorage.setItem('login', data.login);
-            sessionStorage.setItem('password', data.password);
-        
-          navigate('/home');
+           // sessionStorage.setItem('login', data.login);
+            //sessionStorage.setItem('password', data.password);
+           // sessionStorage.setItem('token', data.token);
+        //  navigate('/home');
     }
 
 
@@ -31,7 +61,7 @@ export const Login= () => {
         
         console.log(values);
         if (values.login!=='' && values.password!=='') {
-            let {login, password}=values
+            let {login, password} = values
             const res=await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json;charset=utf-8'},
@@ -58,7 +88,7 @@ export const Login= () => {
     return (
       
         <div style={{width:'370px'}}>
-        <Form  layout="vertical" name="basic" 
+        <Form layout="vertical" name="basic" 
             
             labelCol={{
                 span: 8,

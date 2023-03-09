@@ -1,9 +1,9 @@
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Home } from "./components/Home";
-import { Drugs }  from "./components/Drugs";
+import { Search }  from "./components/Search";
 import { Login } from "./components/Login";
-import { Pharmacies } from "./components/Pharmacies";
+import { Register } from "./components/Register";
 
 
 //определяем роуты в меню 
@@ -27,10 +27,12 @@ export const RoutesAll = (props) => {
     return (
        
         <Routes>
-            <Route path='/home' element={<Home/>}/>
+            <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
-            <Route key='E1' path='/drugs' element={<Drugs/>}/>
-            <Route key='E2' path='/pharmacies' element={<Pharmacies/>}/>
+            <Route path='/register' element={<Register/>}/>
+            <Route key='E1' path='/drugs' element={<Search/>}/>
+            <Route key='E2' path='/pharmacies' element={<Search/>}/>
+            <Route key='E3' path='/doctors' element={<Search/>}/>
         </Routes> 
     
     )

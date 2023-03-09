@@ -11,14 +11,13 @@ function App() {
     <BrowserRouter>
     <Layout className="layout" >
         <Header/>   
-        <Layout style={{alignItems:'center'}}>
+        <Layout>
           <Content
             className="site-layout-background"
             style={{
               padding: 24,
               margin: 0,
-              height: '500px'
-             
+                          
             }}
           >
               <RoutesAll />
@@ -26,7 +25,7 @@ function App() {
         </Layout>
           <Footer style={{textAlign: 'center'}}>
             
-              Search for drugs
+              Created by Geekbrains team
           </Footer>
     </Layout>
 
