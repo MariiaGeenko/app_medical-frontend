@@ -23,7 +23,7 @@ function App() {
               <RoutesAll />
           </Content>
         </Layout>
-          <Footer style={{textAlign: 'center'}}>
+          <Footer style={{textAlign: 'center' }}>
             
               Created by Geekbrains team
           </Footer>

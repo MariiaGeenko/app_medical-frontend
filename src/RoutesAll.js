@@ -4,7 +4,9 @@ import { Home } from "./components/Home";
 import { Search }  from "./components/Search";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
-
+import { DoctorOffice } from "./components/DoctorOffice";
+import { PatientOffice } from "./components/PatientOffice";
+import { PharmacistOffice } from "./components/PharmacistOffice";
 
 //определяем роуты в меню 
 const ProtectedRoute = ({
@@ -33,6 +35,9 @@ export const RoutesAll = (props) => {
             <Route key='E1' path='/drugs' element={<Search/>}/>
             <Route key='E2' path='/pharmacies' element={<Search/>}/>
             <Route key='E3' path='/doctors' element={<Search/>}/>
+            <Route key='E4' path='/doctorOffice' element={<DoctorOffice/>}/>
+            <Route key='E5' path='/patientOffice' element={<PatientOffice/>}/>
+            <Route key='E6' path='/pharmacistOffice' element={<PharmacistOffice/>}/>
         </Routes> 
     
     )

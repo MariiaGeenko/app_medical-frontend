@@ -1,14 +1,21 @@
-import { Input, Button, Form } from 'antd';
+import { Input, Button, Form, Typography, Select} from 'antd';
 import {  useNavigate } from "react-router-dom";
 import {  useState } from 'react';
 import React from 'react';
 import { ModalWarning } from '../ModalWarning';
 import axios from 'axios';
 
+const { Option } = Select;
+const { Title }  = Typography;
+const { Paragraph }  = Typography;
+
+
 
 export const Login= () => {
 
    const API_URL = "http://localhost:3001";
+
+   const [form] = Form.useForm();
 
    const instanceAPI = axios.create({
     //withCredentials: true,
@@ -37,6 +44,11 @@ export const Login= () => {
     });
     
 
+   const rolesUser=[
+        {code:1, role:'Доктор'}, 
+        {code:2, role:'Пациент'}, 
+        {code:3, role:'Фармацевт'}
+    ];
 
 
    const onFinishFailed = (errorInfo) => {
@@ -51,35 +63,55 @@ export const Login= () => {
             
            // sessionStorage.setItem('login', data.login);
             //sessionStorage.setItem('password', data.password);
+            //sessionStorage.setItem('role', data.role);
            // sessionStorage.setItem('token', data.token);
-        //  navigate('/home');
+
+         // navigate('/home');
+
+         switch(data.role) {
+            case 1 :
+                navigate('/doctorOffice');
+                break;
+            case 2 :
+                navigate('/patientOffice');
+                break;
+            default:
+                navigate('/pharmacistOffice');
+                break;
+
+         }
+           
+        
     }
 
 
     
     const onFinish = async (values) => {
-        
-        console.log(values);
-        if (values.login!=='' && values.password!=='') {
-            let {login, password} = values
+
+    
+        if (values.login!=='' && values.password!=='' && values.role!=='') {
+
+            let params={login: values.login, password: values.password,
+                role: values.role};
+            /*
             const res=await fetch(`${API_URL}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json;charset=utf-8'},
-                body: JSON.stringify({
-                    login,
-                    password
-                })
+                body: JSON.stringify(params)
                           
 
             })
             const dataAccess= await res.json();
             if (dataAccess.success) {
-                saveData(dataAccess.data); 
+             //   saveData(dataAccess.data); 
                
                 
             } else {
                 setIsModalOpen({...IsModalOpen, warning: true , warningText: "Невозможно найти такого пользователя!"})
             }
+            */
+            saveData(values);
+
 
         }   
     }
@@ -88,7 +120,7 @@ export const Login= () => {
     return (
       
         <div style={{width:'370px'}}>
-        <Form layout="vertical" name="basic" 
+        <Form form={form} layout="vertical" name="basic" 
             
             labelCol={{
                 span: 8,
@@ -131,16 +163,49 @@ export const Login= () => {
                         <Input.Password/>
                         </Form.Item>
                         <Form.Item
-                        style={{marginRight:'150px'}}
-                            wrapperCol={{
-                            offset: 8,
-                            span: 16,
-                            }}
+                        label='Войти как'
+                        name="role"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Пожалуйста, определите роль!'
+                            }
+                        ]}
                         >
-                            <Button type="primary" htmlType="submit">
-                            Авторизация
-                            </Button>
+                            <Select
+                              showSearch
+                              optionFilterProp="children"
+                              filterOption={(input, option) => option.children.includes(input)}
+                              filterSort={(optionA, optionB) =>
+                                  optionA.children.localeCompare(optionB.children)
+                              }
+                          >
+                              {rolesUser.map((element) => {
+                                  return <Option key={element.code}  value={element.code} >{element.role}</Option>
+                              }
+                              )}
+                          </Select>
                         </Form.Item>
+                        <Form.Item
+                           // wrapperCol={{
+                           // offset: 8,
+                           // span: 16,
+                           // }}
+                        >
+                            <div style={{display:'flex', gap:'10px', width:'200px', flexDirection:'row'}}>
+                                <Button type="primary" htmlType="submit">
+                                Авторизация
+                                </Button>
+                                <Button onClick={()=> {
+                                                    form.resetFields();
+                                                    
+                                                }} >
+                                                Сбросить параметры
+                                            </Button> 
+                            </div>
+                        </Form.Item>
+                      
+
                         
             </Form>
             <ModalWarning open={IsModalOpen.warning}  onCancelModal={() => {setIsModalOpen({...IsModalOpen, warning: false })}} mess={IsModalOpen.warningText}/>

@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'c39';
+  src: url('./../fonts/c39hrp48dhtt.ttf');
+}
