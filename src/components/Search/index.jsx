@@ -1,0 +1,149 @@
+
+import React from 'react';
+import { Input, List, Card, Image, Button} from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { setSearchParamData, setSearchData, clearSearchData } from './../../reducers/SearchData';
+import { BallTriangle } from 'react-loader-spinner';
+import { Link } from 'react-router-dom';
+
+export const Search = () => {
+
+    const dispatch = useDispatch();
+
+    const drugs = useSelector(state => state.Search.drugs);
+    const pharmacies = useSelector(state => state.Search.pharmacies);
+    const doctors = useSelector(state => state.Search.doctors);
+    const SearchData = useSelector(state => state.Search.SearchData);
+
+    const [tag, settag] = useState('');
+
+    async function fetchData() {
+      //let pageData=document.getElementsByClassName('ant-pagination-item-active')[0].attributes.title.value;
+      const response = await fetch('http://localhost:54000/api/drugs/searchList?page=1&perPage=10');
+      let dataS = await response.json();
+      console.log(dataS);
+      return dataS
+    }
+
+  
+
+    useEffect(() => {
+
+      const paramsSearch=[
+        { path: '/drugs', data: { description_url: 'Лекарство', name: 'Некоторое лекарство', img: "drugs.jpg" }},
+        { path: '/pharmacies', data: { description_url: 'Аптека', name: 'Некоторая аптека', img: "pharmacies.jpg" }}, 
+        { path: '/doctors', data: { description_url: 'Доктор', name: 'Некоторый доктор', img:"doctors.jpg" }}
+      ];
+    
+
+          for (let i=1;i<=paramsSearch.length-1; i++) {
+            dispatch(setSearchParamData({path:paramsSearch[i].path, data:paramsSearch[i].data}));
+          }
+         fetchData().then((value) => {
+            dispatch(setSearchParamData({path:paramsSearch[0].path, data:value}));
+            });          
+        
+        },[dispatch]);
+   
+
+      useEffect(()=> {
+        if (window.location.pathname !=='/login' || window.location.pathname !=='/register') {
+          switch(window.location.pathname) {
+            case '/drugs' :
+              dispatch(setSearchData(drugs
+                ));
+              break;
+            case '/pharmacies' :
+              dispatch(setSearchData(Array.from({
+                length: 23,
+              }).map((_, i) => ({
+                href: '#',
+                description_url: `${pharmacies.description_url} ${i+1}`,
+                name: pharmacies.name,
+                img: pharmacies.img
+              }))));
+              break;
+            case '/doctors' :
+              dispatch(setSearchData(Array.from({
+                length: 23,
+              }).map((_, i) => ({
+                href: '#',
+                description_url: `${doctors.description_url} ${i+1}`,
+                name: doctors.name,
+                img: doctors.img
+              }))));
+              break;
+  
+          }
+        }
+  
+        return() => {
+          dispatch(clearSearchData([]));     
+          settag(''); 
+        }
+
+        
+      },[window.location.pathname, dispatch, drugs, pharmacies, doctors]);// eslint-disable-line react-hooks/exhaustive-deps
+
+    
+      const DataLoader = () => {
+
+      if (SearchData.length!==0) {
+
+        return (
+          <div>
+            <div style={{display:'flex', flexDirection:'column'}}>
+              <Button style={{width:'300px', marginBottom:'25px'}}><Link to='/'>Вернуться на главную страницу</Link></Button>
+              <Input placeholder='Поиск' style={{width:'300px', marginBottom:'25px'}}  onChange={(e) => {
+                        settag(e.target.value);
+
+                    }}/>
+            </div>
+
+             <List
+                grid={{
+                gutter: 16,
+                column: 4,
+                }}
+                pagination={{
+                    pageSize: 10,
+                  }}
+                dataSource={SearchData.filter(item => item['description_url'].includes(String(tag))===true)}
+                renderItem={(item) => (
+                <List.Item
+                    key={item.title}>
+                    <Card title={item.description_url}>
+                        <Image
+                          width={272}
+                          alt="logo"
+                          src= {`${item.img}`}
+                        />
+                        <br/>
+                        {item.name}</Card>
+                </List.Item>
+                )}
+              
+            />
+           
+        </div>
+      
+        )
+      } else {
+          return (
+            <div style={{display:'flex', justifyContent: 'center', alignItems:'center', paddingBottom:'30px' }}>
+              <BallTriangle color="#313252" height={80} width={80} />
+            </div>
+                    
+          )
+      }
+    }
+
+    return (
+      <div >
+         {DataLoader()}   
+        
+      </div>
+    
+      )  
+}
