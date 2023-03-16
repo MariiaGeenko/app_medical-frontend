@@ -4,9 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import s from './Header.module.css';
 //import localforage from 'localforage';
 
-
-
-
 export const Header = () => {
 
   let navigate = useNavigate()
@@ -21,7 +18,7 @@ export const Header = () => {
     
   }
 
-    // формирование и рендер меню
+  // формирование и рендер меню
   const items = [
     {
       label:<Link to='/drugs'>Лекарства</Link>,
@@ -35,25 +32,25 @@ export const Header = () => {
       label:<Link to='/doctors'>Врачи</Link>,
       key: 'doctors'
     }
-
-
   ];
    
     return (
       <Layout>
-        <div className={s.HeaderOwn}>
-          <Menu mode="horizontal" style={{width:'300px', visibility: (document.location.pathname !== '/login' || document.location.pathname !== '/register')?'visible':'hidden'}} items={items}/>
-          <div className={s.HeaderOwn} style={{height:'30px'}}>
-          <Tag color="blue" style={{visibility: (sessionStorage.length!==0)? 'visible': 'hidden'}}>{sessionStorage.getItem('login')}</Tag>
-          <Button size="small" style={{visibility: (sessionStorage.length!==0)? 'visible': 'hidden', margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={changeUser}>Выход</Button>
-          <Button size="small" style={{visibility: (sessionStorage.length===0)? 'visible': 'hidden', margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={()=>{navigate('/register')}}>Регистрация</Button>
-          <Button size="small" style={{visibility: (sessionStorage.length===0)? 'visible': 'hidden', margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={()=>{navigate('/login')}}>Вход</Button>
+        <div className={s.Back}>             
+          <div className={s.Header}> 
+            <p className={s.Logo} onClick={()=>{navigate('/')}}>MyReceipt</p>     
+            <div className={s.HeaderOwn} style={{height:'30px'}}>
+                <Tag color="blue" style={{visibility: (sessionStorage.length!==0)? 'visible': 'hidden'}}>{sessionStorage.getItem('login')}</Tag> 
+                <Button size="small" style={{visibility: (sessionStorage.length!==0)? 'visible': 'hidden', margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={changeUser}>Выход</Button>
+                <Button size="small" style={{visibility: (sessionStorage.length===0)? 'visible': 'hidden', margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={()=>{navigate('/register')}}>Регистрация</Button>
+                <Button size="small" style={{visibility: (sessionStorage.length===0)? 'visible': 'hidden', margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={()=>{navigate('/login')}}>Вход</Button>                   
+            </div>    
           </div>
-          
+          <div className={s.Menu}>
+            <Menu mode="horizontal" style={{width:'300px', visibility: (document.location.pathname !== '/login' || document.location.pathname !== '/register')?'visible':'hidden'}} items={items}/> 
+          </div> 
         </div>
         
-  
       </Layout>
     )
-
 }

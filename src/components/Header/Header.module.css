@@ -1,8 +1,22 @@
-.HeaderOwn{
+.Logo{
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.Header{
     display: flex;
-    justify-content: space-between;
-    background-image: url('../../../public/img7.webp');
-    background-size: 300px;
-    height:46px;
- }
- 
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Back{
+    background-color: white;
+}
+
+.Menu{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
