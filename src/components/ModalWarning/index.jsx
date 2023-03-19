@@ -4,7 +4,7 @@ const { Title } = Typography;
 
 export const ModalWarning = ({open, onCancelModal, mess}) => {
     return (
-        <Modal open={open} onCancel={onCancelModal} title={"Предупреждение: "}
+        <Modal open={open} onCancel={onCancelModal} title={"Warning: "}
             footer ={[
                 <Button key="back" onClick={onCancelModal}>
                 ОК

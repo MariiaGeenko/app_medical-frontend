@@ -31,9 +31,9 @@ export const Search = () => {
     useEffect(() => {
 
       const paramsSearch=[
-        { path: '/drugs', data: { description_url: 'Лекарство', name: 'Некоторое лекарство', img: "drugs.jpg" }},
-        { path: '/pharmacies', data: { description_url: 'Аптека', name: 'Некоторая аптека', img: "pharmacies.jpg" }}, 
-        { path: '/doctors', data: { description_url: 'Доктор', name: 'Некоторый доктор', img:"doctors.jpg" }}
+        { path: '/medicines', data: { description_url: 'Medicine', name: 'Some Medicine', img: "drugs.jpg" }},
+        { path: '/pharmacies', data: { description_url: 'Pharmacy', name: 'Some Pharmacy', img: "pharmacies.jpg" }}, 
+        { path: '/doctors', data: { description_url: 'Doctor', name: 'Some Doctor', img:"doctors.jpg" }}
       ];
     
 
@@ -42,7 +42,9 @@ export const Search = () => {
           }
          fetchData().then((value) => {
             dispatch(setSearchParamData({path:paramsSearch[0].path, data:value}));
-            });          
+            console.log(value);
+            });       
+          
         
         },[dispatch]);
    
@@ -50,7 +52,8 @@ export const Search = () => {
       useEffect(()=> {
         if (window.location.pathname !=='/login' || window.location.pathname !=='/register') {
           switch(window.location.pathname) {
-            case '/drugs' :
+            case '/medicines' :
+              console.log(drugs);
               dispatch(setSearchData(drugs
                 ));
               break;
@@ -64,7 +67,7 @@ export const Search = () => {
                 img: pharmacies.img
               }))));
               break;
-            case '/doctors' :
+            default :
               dispatch(setSearchData(Array.from({
                 length: 23,
               }).map((_, i) => ({
@@ -87,6 +90,7 @@ export const Search = () => {
       },[window.location.pathname, dispatch, drugs, pharmacies, doctors]);// eslint-disable-line react-hooks/exhaustive-deps
 
     
+      console.log(SearchData);
       const DataLoader = () => {
 
       if (SearchData.length!==0) {
@@ -94,8 +98,8 @@ export const Search = () => {
         return (
           <div>
             <div style={{display:'flex', flexDirection:'column'}}>
-              <Button style={{width:'300px', marginBottom:'25px'}}><Link to='/'>Вернуться на главную страницу</Link></Button>
-              <Input placeholder='Поиск' style={{width:'300px', marginBottom:'25px'}}  onChange={(e) => {
+              <Button style={{width:'300px', marginBottom:'25px'}}><Link to='/'>Return to main page</Link></Button>
+              <Input placeholder='Search' style={{width:'300px', marginBottom:'25px'}}  onChange={(e) => {
                         settag(e.target.value);
 
                     }}/>

@@ -17,7 +17,7 @@ reducers: {
     setSearchParamData: (state, action) => {
 
         switch(action.payload.path) {
-            case '/drugs' :
+            case '/medicines' :
                  state.drugs = action.payload.data;
                  state.drugs.forEach(el => {
                     el['img']= "drugs.jpg";
@@ -28,7 +28,7 @@ reducers: {
                  state.pharmacies = action.payload.data;
                 break;
 
-            case '/doctors' :
+            default :
                  state.doctors = action.payload.data;
                 break;
          

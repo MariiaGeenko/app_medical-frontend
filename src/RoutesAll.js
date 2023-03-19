@@ -32,7 +32,7 @@ export const RoutesAll = (props) => {
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
-            <Route key='E1' path='/drugs' element={<Search/>}/>
+            <Route key='E1' path='/medicines' element={<Search/>}/>
             <Route key='E2' path='/pharmacies' element={<Search/>}/>
             <Route key='E3' path='/doctors' element={<Search/>}/>
             <Route key='E4' path='/doctorOffice' element={<DoctorOffice/>}/>
