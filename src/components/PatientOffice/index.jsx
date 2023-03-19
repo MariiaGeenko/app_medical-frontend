@@ -9,18 +9,24 @@ const { Option } = Select;
 export const PatientOffice = () => {
 
     const patientInfo={
-        fio:'Ivanov Ivan',
+        surname:'Ivanov',
+        name:'Ivan',
         medCard: 111111,
-        diagnosis: 'COVID-19 идентифицирован (U07.1)',
+        insurance_number: 567432,
+        diagnosis: 'COVID-19 identified (U07.1)',
         doctor: 'Petrov Petr',
-        receipt: ['123456789', '987654321'] ,
+        receipt: [
+          {codeReceipt: '123456789', status: 'issued'},//выдан
+          {codeReceipt: '987654321', status: 'archive'}
+        ],
         drugs: [
-            {codeDrug: 'Ингарон', pharmacies: [{key: 1, codePharmacy: 'pharmacy 1', countDrug: 10}, {key: 2, codePharmacy: 'pharmacy 2' , countDrug: 6}]},
-            {codeDrug: 'Арбидол', pharmacies: [{key: 3, codePharmacy: 'pharmacy 3', countDrug: 13}, {key: 4,codePharmacy: 'pharmacy 4',  countDrug: 6}]}
+            {codeDrug: 'Ingaron', pharmacies: [{key: 1, codePharmacy: 'pharmacy 1', countDrug: 10}, {key: 2, codePharmacy: 'pharmacy 2' , countDrug: 6}]},
+            {codeDrug: 'Arbidol', pharmacies: [{key: 3, codePharmacy: 'pharmacy 3', countDrug: 13}, {key: 4,codePharmacy: 'pharmacy 4',  countDrug: 6}]}
         ]
     }
 
     const [drug, setdrug] = useState({drugCode: '', info:[]});
+    const [receipt, setreceipt] = useState({receiptCode: '', status:''});
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -43,7 +49,7 @@ export const PatientOffice = () => {
         >
           <Input
             ref={searchInput}
-            placeholder={'Поиск'}
+            placeholder={'Search'}
             value={selectedKeys[0]}
             onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
             onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
@@ -62,7 +68,7 @@ export const PatientOffice = () => {
                 width: 90,
               }}
             >
-              Поиск
+              Search
             </Button>
             <Button
               onClick={() => {
@@ -78,7 +84,7 @@ export const PatientOffice = () => {
                 width: 90,
               }}
             >
-              Сброс
+              Reset
             </Button>
           </Space>
         </div>
@@ -117,8 +123,8 @@ export const PatientOffice = () => {
     });
 
     let columns= [
-      {title: 'Аптека', key:'codePharmacy',  dataIndex: 'codePharmacy', width: '15%',  ...getColumnSearchProps('codePharmacy'),  sorter: (a, b) =>  a.codePharmacy.toLowerCase().localeCompare(b.codePharmacy.toLowerCase()), sortDirections: ['descend', 'ascend']},
-      {title: 'Количество лекарств', key:'countDrug', dataIndex: 'countDrug', width: '0%',  ...getColumnSearchProps('countDrug'), sorter: (a, b) => a.countDrug - b.countDrug, sortDirections: ['descend', 'ascend']}
+      {title: 'Pharmacy', key:'codePharmacy',  dataIndex: 'codePharmacy', width: '15%',  ...getColumnSearchProps('codePharmacy'),  sorter: (a, b) =>  a.codePharmacy.toLowerCase().localeCompare(b.codePharmacy.toLowerCase()), sortDirections: ['descend', 'ascend']},
+      {title: 'Medicines count', key:'countDrug', dataIndex: 'countDrug', width: '0%',  ...getColumnSearchProps('countDrug'), sorter: (a, b) => a.countDrug - b.countDrug, sortDirections: ['descend', 'ascend']}
     ];
 
 
@@ -126,13 +132,14 @@ export const PatientOffice = () => {
 
     return (
         <div>
-            <Title level={5} style={{marginBottom:'20px', textAlign:'center'}}>Личный кабинет пациента</Title>
+            <Title level={5} style={{marginBottom:'20px', textAlign:'center'}}>Patient Office</Title>
             <div style={{width:'400px'}}>
-                <Input style={{paddingBottom:'20px'}} addonBefore="ФИО пациента" value={patientInfo.fio}/>
-                <Input style={{paddingBottom:'20px'}} addonBefore="Номер мед. карты" value={patientInfo.medCard}/>
-                <Input style={{paddingBottom:'20px'}} addonBefore="Диагноз" value={patientInfo.diagnosis}/>
-                <Input style={{paddingBottom:'20px'}} addonBefore="ФИО доктора" value={patientInfo.doctor}/>
-                <Paragraph>Рецепты</Paragraph>
+                <Input style={{paddingBottom:'20px'}} addonBefore="Patient" value={`${patientInfo.surname} ${patientInfo.name}`}/>
+                <Input style={{paddingBottom:'20px'}} addonBefore="Med. card" value={patientInfo.medCard}/>
+                <Input style={{paddingBottom:'20px'}} addonBefore="Diagnosis" value={patientInfo.diagnosis}/>
+                <Input style={{paddingBottom:'20px'}} addonBefore="Insurance number" value={patientInfo.insurance_number}/>
+                <Input style={{paddingBottom:'20px'}} addonBefore="Doctor" value={patientInfo.doctor}/>
+                <Paragraph>Receipts</Paragraph>
                             <Select allowClear="true"
                               showSearch
                               optionFilterProp="children"
@@ -141,14 +148,25 @@ export const PatientOffice = () => {
                                   optionA.children.localeCompare(optionB.children)
                               }
                               style={{width:'400px'}}
+                              onChange={(value) => {
+                                for (let i=0;i<=patientInfo.receipt.length-1;i++) {
+                                  if (patientInfo.receipt[i].codeReceipt===value) {
+                                    setreceipt({...receipt, receiptCode:value, status: patientInfo.receipt[i].status});
+                                  }
+                                }
+                                if (value===undefined){
+                                  setreceipt({...receipt, receiptCode:''});
+                                }
+                              }}
                             >
                               {patientInfo.receipt.map((element) => {
-                                  return <Option style={{fontFamily:'c39', fontSize:'56px'}} key={element}  value={element} >{element}</Option>
+                                  return <Option style={{fontFamily:'c39', fontSize:'56px'}} key={element.codeReceipt}  value={element.codeReceipt} >{element.codeReceipt}</Option>
                               }
                               )}
                           </Select>
+                          <Input style={{display:(receipt.receiptCode!=='')?null:'none'}} addonBefore="Receipt's status" value={`${receipt.status}`}/>
                 <br/>
-                <Paragraph>Лекарства</Paragraph>
+                <Paragraph>Medicines</Paragraph>
                             <Select allowClear="true"
                               showSearch
                               optionFilterProp="children"

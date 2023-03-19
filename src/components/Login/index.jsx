@@ -45,9 +45,9 @@ export const Login= () => {
     
 
    const rolesUser=[
-        {code:1, role:'Доктор'}, 
-        {code:2, role:'Пациент'}, 
-        {code:3, role:'Фармацевт'}
+        {code:1, role:'Doctor'}, 
+        {code:2, role:'Patient'}, 
+        {code:3, role:'Pharmacist'}
     ];
 
 
@@ -139,36 +139,36 @@ export const Login= () => {
             >
             
                         <Form.Item
-                        label='Логин'
+                        label='Login'
                         name="login"
                         rules={[
                             {
                                 required: true,
-                                message: 'Пожалуйста, введите логин!'
+                                message: 'Enter your login please!'
                             }
                         ]}
                         >
                         <Input/>
                         </Form.Item>
                         <Form.Item
-                        label='Пароль'
+                        label='Password'
                         name="password"
                         rules={[
                             {
                                 required: true,
-                                message: 'Пожалуйста, введите пароль!'
+                                message: 'Enter your password please!'
                             }
                         ]}
                         >
                         <Input.Password/>
                         </Form.Item>
                         <Form.Item
-                        label='Войти как'
+                        label='Role'
                         name="role"
                         rules={[
                             {
                                 required: true,
-                                message: 'Пожалуйста, определите роль!'
+                                message: 'Define your role please!'
                             }
                         ]}
                         >
@@ -194,13 +194,13 @@ export const Login= () => {
                         >
                             <div style={{display:'flex', gap:'10px', width:'200px', flexDirection:'row'}}>
                                 <Button type="primary" htmlType="submit">
-                                Авторизация
+                                Sign in
                                 </Button>
                                 <Button onClick={()=> {
                                                     form.resetFields();
                                                     
                                                 }} >
-                                                Сбросить параметры
+                                                Reset options
                                             </Button> 
                             </div>
                         </Form.Item>
