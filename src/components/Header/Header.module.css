@@ -1,0 +1,8 @@
+.HeaderOwn{
+    display: flex;
+    justify-content: space-between;
+    background-image: url('../../../public/img7.webp');
+    background-size: 300px;
+    height:46px;
+ }
+ 
