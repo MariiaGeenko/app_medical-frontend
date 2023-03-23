@@ -1,0 +1,52 @@
+.Container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.HomeOwn{
+    padding: 174px 0px;   
+    background-color: white;
+}
+
+.HomeBlock{   
+    display: flex;
+    justify-content: space-between;
+    align-items: center;     
+}
+
+.Textcontent{
+    text-align: left;
+}
+
+.Title{
+    font-size: 35px;
+    max-width: 500px;
+    color: rgb(237, 108, 16);
+    font-weight: 700;
+}
+
+.Text{
+    color: rgb(37, 37, 99);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+.Button{
+    background-color: rgb(37, 37, 99);
+    color: white;
+    border-radius: 50px;
+    border: 1px rgb(37, 37, 99) solid;
+    padding: 15px 70px;
+    font-size: 15px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+}
+
+.Button:hover{
+    background-color: white;
+    color: rgb(37, 37, 99);
+    border: 1px rgb(37, 37, 99) solid;
+}
