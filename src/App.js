@@ -9,18 +9,16 @@ import { RoutesAll } from './RoutesAll';
 function App() {
   return (
     <BrowserRouter>
-    <Layout className="layout" >
-        <Header/>   
-        <Layout>
-          <Content>
-              <RoutesAll />
+      <Layout className="layout">
+        <Header />
+        <Layout className="content">
+          <Content className="container">
+            <RoutesAll />
           </Content>
         </Layout>
-          <Footer/>
-    </Layout>
-
-  </BrowserRouter>
-
+        <Footer />
+      </Layout>
+    </BrowserRouter>
   );
 }
 

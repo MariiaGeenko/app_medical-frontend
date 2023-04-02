@@ -1,13 +1,12 @@
-import { Input, Button, Form, Typography, Select} from 'antd';
+import { Input, Button, Form, Select} from 'antd';
 import {  useNavigate } from "react-router-dom";
 import {  useState } from 'react';
 import React from 'react';
 import { ModalWarning } from '../ModalWarning';
 import axios from 'axios';
+import s from './Login.module.css';
 
 const { Option } = Select;
-const { Title }  = Typography;
-const { Paragraph }  = Typography;
 
 
 
@@ -50,7 +49,6 @@ export const Login= () => {
         {code:3, role:'Pharmacist'}
     ];
 
-
    const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     }
@@ -58,8 +56,7 @@ export const Login= () => {
 
     const [IsModalOpen, setIsModalOpen] = useState({ warning: false, warningText: ''});
 
-    const saveData = (data) => {
-    
+    const saveData = (data) => {   
             
            // sessionStorage.setItem('login', data.login);
             //sessionStorage.setItem('password', data.password);
@@ -78,13 +75,8 @@ export const Login= () => {
             default:
                 navigate('/pharmacistOffice');
                 break;
-
-         }
-           
-        
+        }                   
     }
-
-
     
     const onFinish = async (values) => {
 
@@ -102,25 +94,21 @@ export const Login= () => {
 
             })
             const dataAccess= await res.json();
-            if (dataAccess.success) {
-             //   saveData(dataAccess.data); 
-               
+            if (dataAccess.success) {              
                 
             } else {
                 setIsModalOpen({...IsModalOpen, warning: true , warningText: "Невозможно найти такого пользователя!"})
             }
             */
             saveData(values);
-
-
         }   
     }
 
-
     return (
       
-        <div style={{width:'370px'}}>
-        <Form form={form} layout="vertical" name="basic" 
+        <div className={s.wrapper}>
+            <h5 className={s.title}>Login</h5>
+        <Form className={s.form} form={form} layout="vertical" name="basic" 
             
             labelCol={{
                 span: 8,
@@ -133,8 +121,7 @@ export const Login= () => {
                 remember: true
             }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-           
+            onFinishFailed={onFinishFailed}         
             
             >
             
@@ -186,27 +173,12 @@ export const Login= () => {
                               )}
                           </Select>
                         </Form.Item>
-                        <Form.Item
-                           // wrapperCol={{
-                           // offset: 8,
-                           // span: 16,
-                           // }}
-                        >
-                            <div style={{display:'flex', gap:'10px', width:'200px', flexDirection:'row'}}>
-                                <Button type="primary" htmlType="submit">
-                                Sign in
-                                </Button>
-                                <Button onClick={()=> {
-                                                    form.resetFields();
-                                                    
-                                                }} >
-                                                Reset options
-                                            </Button> 
+                        <Form.Item>
+                            <div className={s.buttons}>
+                                <Button className={s.button} htmlType="submit">Sign in</Button>
+                                <Button className={s.button} onClick={()=> {form.resetFields()}}>Reset options</Button> 
                             </div>
-                        </Form.Item>
-                      
-
-                        
+                        </Form.Item>      
             </Form>
             <ModalWarning open={IsModalOpen.warning}  onCancelModal={() => {setIsModalOpen({...IsModalOpen, warning: false })}} mess={IsModalOpen.warningText}/>
         </div>
