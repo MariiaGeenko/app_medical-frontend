@@ -1,7 +1,6 @@
 import { Modal, Typography, Button} from 'antd';
 const { Title } = Typography;
-
-
+   
 export const ModalWarning = ({open, onCancelModal, mess}) => {
     return (
         <Modal open={open} onCancel={onCancelModal} title={"Warning: "}
@@ -16,5 +15,3 @@ export const ModalWarning = ({open, onCancelModal, mess}) => {
         </Modal>
     )
 }
-
-

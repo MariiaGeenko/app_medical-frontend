@@ -1,143 +1,234 @@
 
 import React from 'react';
-import { Input, List, Card, Image, Button} from 'antd';
+import { Input, List, Card, Image, Select, Typography, Button } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { setSearchParamData, setSearchData, clearSearchData } from './../../reducers/SearchData';
+import { setSearchData, clearSearchData } from './../../reducers/SearchData';
 import { BallTriangle } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import s from './Index.module.css';
 
-export const Search = () => {
+const { Title } = Typography;
+const { Paragraph } = Typography;
+const { Option } = Select;
 
-    const dispatch = useDispatch();
 
-    const drugs = useSelector(state => state.Search.drugs);
-    const pharmacies = useSelector(state => state.Search.pharmacies);
-    const doctors = useSelector(state => state.Search.doctors);
-    const SearchData = useSelector(state => state.Search.SearchData);
+export const Search = ({ path }) => {
 
-    const [tag, settag] = useState('');
+  const dispatch = useDispatch();
 
-    async function fetchData() {
-      //let pageData=document.getElementsByClassName('ant-pagination-item-active')[0].attributes.title.value;
-      const response = await fetch('http://localhost:54000/api/drugs/searchList?page=1&perPage=10');
-      let dataS = await response.json();
-      console.log(dataS);
-      return dataS
+  const drugs = useSelector(state => state.Search.drugs);
+  const pharmacies = useSelector(state => state.Search.pharmacies);
+  const doctors = useSelector(state => state.Search.doctors);
+  const SearchData = useSelector(state => state.Search.SearchData);
+
+  const [tag, settag] = useState('');
+
+  useEffect(() => {
+
+    if (window.location.pathname !== '/login' || window.location.pathname !== '/register') {
+      switch (path) {
+        case '/medicines':
+          console.log(drugs);
+          dispatch(setSearchData(drugs));
+          break;
+        case '/pharmacies':
+          console.log(pharmacies);
+          dispatch(setSearchData(pharmacies));
+          break;
+        case '/doctors':
+          console.log(doctors);
+          dispatch(setSearchData(doctors));
+          break;
+      }
     }
 
-  
+    return () => {
+      settag('');
+      // document.querySelector('input').value='';
+      dispatch(clearSearchData());
 
-    useEffect(() => {
+    }
 
-      const paramsSearch=[
-        { path: '/medicines', data: { description_url: 'Medicine', name: 'Some Medicine', img: "drugs.jpg" }},
-        { path: '/pharmacies', data: { description_url: 'Pharmacy', name: 'Some Pharmacy', img: "pharmacies.jpg" }}, 
-        { path: '/doctors', data: { description_url: 'Doctor', name: 'Some Doctor', img:"doctors.jpg" }}
-      ];
-    
+  }, [path, dispatch, drugs, pharmacies, doctors]);
 
-          for (let i=1;i<=paramsSearch.length-1; i++) {
-            dispatch(setSearchParamData({path:paramsSearch[i].path, data:paramsSearch[i].data}));
-          }
-         fetchData().then((value) => {
-            dispatch(setSearchParamData({path:paramsSearch[0].path, data:value}));
-            console.log(value);
-            });       
-          
-        
-        },[dispatch]);
-   
+  console.log(SearchData);
 
-      useEffect(()=> {
-        if (window.location.pathname !=='/login' || window.location.pathname !=='/register') {
-          switch(window.location.pathname) {
-            case '/medicines' :
-              console.log(drugs);
-              dispatch(setSearchData(drugs
-                ));
-              break;
-            case '/pharmacies' :
-              dispatch(setSearchData(Array.from({
-                length: 23,
-              }).map((_, i) => ({
-                href: '#',
-                description_url: `${pharmacies.description_url} ${i+1}`,
-                name: pharmacies.name,
-                img: pharmacies.img
-              }))));
-              break;
-            default :
-              dispatch(setSearchData(Array.from({
-                length: 23,
-              }).map((_, i) => ({
-                href: '#',
-                description_url: `${doctors.description_url} ${i+1}`,
-                name: doctors.name,
-                img: doctors.img
-              }))));
-              break;
-  
-          }
-        }
-  
-        return() => {
-          dispatch(clearSearchData([]));     
-          settag(''); 
-        }
-
-        
-      },[window.location.pathname, dispatch, drugs, pharmacies, doctors]);// eslint-disable-line react-hooks/exhaustive-deps
-
-    
-      console.log(SearchData);
-      const DataLoader = () => {
-
-      if (SearchData.length!==0) {
-
+  const DataLoader = () => {
+    if (drugs.length !== 0 && pharmacies.length !== 0 && doctors.length !== 0 && SearchData.length !== 0) {
+      if (SearchData[0].hasOwnProperty('drugsPharmacy') === true) {
         return (
-          <div>
-            <Input placeholder='Search' style={{width:'300px', marginBottom:'25px'}}  onChange={(e) => {settag(e.target.value);}}/>
+          <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex' }}>
+              <Input placeholder='Search' style={{ width: '300px', marginBottom: '25px' }} onChange={(e) => {
+                settag(e.target.value);
 
-            <List className={s.list}
+              }} />
+
+            </div>
+            <List
               grid={{
-              gutter: 16,
-              column: 4,
+                gutter: 16,
+                column: 4,
               }}
               pagination={{
                 pageSize: 10,
               }}
-              dataSource={SearchData.filter(item => item['description_url'].includes(String(tag))===true)}
+              dataSource={SearchData.filter(item => ((path === '/doctors') ? (item['surname'] + ' ' + item['name']) || item[''] : item['name']).includes(String(tag)) === true)}
               renderItem={(item) => (
-              <List.Item
-                key={item.title}>
-                  <Card title={item.description_url}>
-                    <Image
-                      alt="logo"
-                      src= {`${item.img}`}
-                    />
-                    <br/>
-                    {item.name}</Card>
-                </List.Item>
-                )}              
-            />           
-        </div>
-      
-        )
-      } else {
-          return (
-            <div style={{display:'flex', justifyContent: 'center', alignItems:'center', paddingBottom:'30px' }}>
-              <BallTriangle color="#313252" height={80} width={80} />
-            </div>
-                    
-          )
-      }
-    }
+                <List.Item
+                  key={(window.location.pathname === '/doctors') ? item.surname + ' ' + item.name : item.name}
+                >
+                  <Card title={(window.location.pathname === '/doctors') ? item.surname + ' ' + item.name : item.name}>
+                    <Image style={{ padding: '15px' }}
 
-    return (
-      <div >
-         {DataLoader()} 
-      </div>
-    )  
+                      width={300}
+                      height={230}
+                      alt="logo"
+                      src={(path === '/medicines') ? 'drugs.jpg' : (path === '/pharmacies') ? 'pharmacies.jpg' : 'doctors.jpg'}
+                    />
+
+                    {(window.location.pathname === '/medicines') ? item.description_url : (window.location.pathname === '/doctors') ? item.caption : item.address}
+
+                    <Title level={5} style={{ padding: '10px', alignItems: 'center', display: (window.location.pathname === '/pharmacies') ? null : 'none' }}>Medicines</Title>
+                    <Select style={{ width: '200px', display: (window.location.pathname === '/pharmacies' || window.location.pathname === '/medicines') ? null : 'none' }} allowClear="true"
+                      showSearch
+                      optionFilterProp="children"
+                      filterOption={(input, option) => option.children.includes(input)}
+                    //  filterSort={(optionA, optionB) =>
+                    //     optionA.children.localeCompare(optionB.children)
+                    // }
+                    >
+                      {SearchData.filter(element => element.name === item.name)[0]['drugsPharmacy'].map(element => <Option key={element}>{element}</Option>)}
+
+
+                    </Select>
+
+                  </Card>
+                </List.Item>
+              )}
+            />
+          </div>
+        )
+      } else if (SearchData[0].hasOwnProperty('pharmacyDrugs') === true) {
+
+        return (
+          <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex' }}>
+              <Input placeholder='Search' style={{ width: '300px', marginBottom: '25px' }} onChange={(e) => {
+                settag(e.target.value);
+
+              }} />
+            </div>
+            <List
+              grid={{
+                gutter: 16,
+                column: 4,
+              }}
+              pagination={{
+                pageSize: 10,
+              }}
+              dataSource={SearchData.filter(item => ((path === '/doctors') ? (item['surname'] + ' ' + item['name']) || item[''] : item['name']).includes(String(tag)) === true)}
+              renderItem={(item) => (
+                <List.Item
+                  key={(window.location.pathname === '/doctors') ? item.surname + ' ' + item.name : item.name}
+                >
+                  <Card title={(window.location.pathname === '/doctors') ? item.surname + ' ' + item.name : item.name}>
+                    <div style={{ display: 'flex', gap: '20px', flexDirection: 'column' }}>
+                      <Image
+                        style={{ paddingRight: '50px' }}
+                        width={300}
+                        height={230}
+                        alt="logo"
+                        src={(path === '/medicines') ? 'drugs.jpg' : (path === '/pharmacies') ? 'pharmacies.jpg' : 'doctors.jpg'}
+                      />
+
+                      <br />
+                      {(window.location.pathname === '/medicines') ? item.description_url : (window.location.pathname === '/doctors') ? item.caption : item.address}
+
+
+                      <Title level={5} style={{ padding: '10px', alignItems: 'center', display: (window.location.pathname === '/medicines') ? null : 'none' }}>Pharmacies</Title>
+                      <Select style={{ width: '200px', display: (window.location.pathname === '/pharmacies' || window.location.pathname === '/medicines') ? null : 'none' }} allowClear="true"
+                        showSearch
+                        optionFilterProp="children"
+                        filterOption={(input, option) => option.children.includes(input)}
+                      //  filterSort={(optionA, optionB) =>
+                      //     optionA.children.localeCompare(optionB.children)
+                      // }
+                      >
+                        {SearchData.filter(element => element.name === item.name)[0]['pharmacyDrugs'].map(element => <Option key={element}>{element}</Option>)}
+
+
+                      </Select>
+                    </div>
+
+                  </Card>
+                </List.Item>
+              )}
+            />
+          </div>
+        )
+
+      } else {
+
+        return (
+          <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+            <div style={{ display: 'flex' }}>
+              <Input placeholder='Search' style={{ width: '300px', marginBottom: '25px' }} onChange={(e) => {
+                settag(e.target.value);
+
+              }} />
+
+            </div>
+            <List
+              grid={{
+                gutter: 16,
+                column: 4,
+              }}
+              pagination={{
+                pageSize: 10,
+              }}
+              dataSource={SearchData.filter(item => ((path === '/doctors') ? (item['surname'] + ' ' + item['name']) || item['caption'] : item['name']).includes(String(tag)) === true)}
+              renderItem={(item) => (
+                <List.Item
+                  key={(window.location.pathname === '/doctors') ? item.surname + ' ' + item.name : item.name}
+                >
+                  <Card title={(window.location.pathname === '/doctors') ? item.surname + ' ' + item.name : item.name}>
+                    <Image
+                      width={250}
+                      height={210}
+                      alt="logo"
+                      src={(path === '/medicines') ? 'drugs.jpg' : (path === '/pharmacies') ? 'pharmacies.jpg' : 'doctors.jpg'}
+                    />
+                    <br />
+                    {(window.location.pathname === '/medicines') ? item.description_url : (window.location.pathname === '/doctors') ? item.caption_speciality : item.address}
+                  </Card>
+                </List.Item>
+              )}
+
+            />
+
+          </div>
+
+        )
+
+
+      }
+    } else {
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '30px', paddingBottom: '30px', height: '600px' }}>
+          <BallTriangle color="#313252" height={100} width={100} />
+        </div>
+
+      )
+    }
+  }
+
+  return (
+    <div >
+      {DataLoader()}
+    </div>
+  )
 }
+
+

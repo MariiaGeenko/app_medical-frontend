@@ -2,7 +2,7 @@
 import { Layout } from 'antd';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { BrowserRouter } from 'react-router-dom'; 
+import { BrowserRouter } from 'react-router-dom';
 import { Content } from 'antd/es/layout/layout';
 import { RoutesAll } from './RoutesAll';
 

@@ -15,7 +15,7 @@ const ProtectedRoute = ({
   children
 }) => {
   
-  if (!user) {
+  if (user==='') {
     return <Navigate to={redirectPath} replace />;
   }
 
@@ -32,12 +32,12 @@ export const RoutesAll = (props) => {
             <Route path='/' element={<Home/>}/>
             <Route path='/login' element={<Login/>}/>
             <Route path='/register' element={<Register/>}/>
-            <Route key='E1' path='/medicines' element={<Search/>}/>
-            <Route key='E2' path='/pharmacies' element={<Search/>}/>
-            <Route key='E3' path='/doctors' element={<Search/>}/>
+            <Route key='E1' path='/medicines' element={<Search path='/medicines' />}/>
+            <Route key='E2' path='/pharmacies' element={<Search path='/pharmacies' />}/>
+            <Route key='E3' path='/doctors' element={<Search path='/doctors' />}/>
             <Route key='E4' path='/doctorOffice' element={<DoctorOffice/>}/>
             <Route key='E5' path='/patientOffice' element={<PatientOffice/>}/>
-            <Route key='E6' path='/pharmacistOffice' element={<PharmacistOffice/>}/>
+            <Route key='E6' path='/pharmacistOffice' element={<ProtectedRoute user={sessionStorage.getItem('login')}  redirectPath='/login'><PharmacistOffice/></ProtectedRoute>}/>
         </Routes> 
     
     )
