@@ -3,11 +3,16 @@
     margin: 0 auto;
 }
 
+.FooterOwn{
+    background-color: rgb(37, 37, 99);
+    color: white;
+}
+
 .FooterMenu{
     list-style: none;
     display: flex;
     flex: 0 1 50%;
     justify-content: space-between;
     align-items: center;
-    font-size: 15px;
+    font-size: 18px;
 }

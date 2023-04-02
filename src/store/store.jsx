@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import  SearchData  from '../reducers/SearchData';
+import  RowKeys from '../reducers/selectedRowKeys';
 
 import thunk from 'redux-thunk';
 import autoMergeLevel2 from 'reduxjs-toolkit-persist/lib/stateReconciler/autoMergeLevel2';
@@ -13,7 +14,8 @@ import {
 import localforage from 'localforage';
 
 const rootReducer = combineReducers({
-      Search: SearchData
+      Search: SearchData,
+      selectedRowKeys: RowKeys,
 });
 
 const persistConfig = {

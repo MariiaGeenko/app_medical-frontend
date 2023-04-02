@@ -9,7 +9,7 @@ export const Footer = () => {
             <div className={s.Container}>
               <div className={s.FooterMenu}>
                 <div className={s.Footercolumn}>
-                  <p>Юридическая информация</p>  
+                  <p>Legal information</p>  
                   <p>Сreated by Geekbrains Team</p> 
                 </div>
                 <div className={s.Footercolumn}>

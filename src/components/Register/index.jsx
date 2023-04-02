@@ -15,7 +15,7 @@ export const Register = () => {
 
     const rolesUser=[
         {code:1, role:'Doctor'}, 
-        {code:2, role:'Patient'}, 
+    //    {code:2, role:'Patient'}, 
         {code:3, role:'Pharmacist'}
     ];
 
@@ -27,7 +27,7 @@ export const Register = () => {
 
     const [role, setrole] = useState('');
     const [doctor, setdoctor] = useState({is_online: false, name:'', surname:'', speciality:'', education_organization: '', working_mode:''});
-    const [patient, setpatient] = useState({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
+   // const [patient, setpatient] = useState({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
     const [pharmacy, setpharmacy] = useState({caption:'', address:'', phone:'', email:'', gps_coordinates:'' });
     
     let working_mode=[
@@ -67,7 +67,7 @@ export const Register = () => {
         }   
     }
 
-    console.log(patient);
+
     const SetRoleParams = () => {
         switch(role) {
             case 1: 
@@ -114,12 +114,12 @@ export const Register = () => {
                         rules={[
                             {
                                 required: true,
-                                message: 'Enter your Education organization please!'
+                                message: 'Enter your Education please!'
                             }
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Education organization" onChange={(e)=> setdoctor({...doctor,education_organization: e.target.value})}/>
+                            <Input addonBefore="Education" onChange={(e)=> setdoctor({...doctor,education_organization: e.target.value})}/>
                         </Form.Item>
                         
         
@@ -161,7 +161,8 @@ export const Register = () => {
                           </Form.Item>
                     </div>
                 )
-            case 2:
+          
+          /*      case 2:
                 return (
                     <div>
                         <Form.Item
@@ -237,6 +238,7 @@ export const Register = () => {
                    
                     </div>
                 )
+                */
             case 3: 
                 return (
                     <div>
@@ -288,6 +290,42 @@ export const Register = () => {
                         >
                             <Input addonBefore="Email Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,email: e.target.value})}/>
                         </Form.Item>
+                        <Paragraph>Working Mode</Paragraph>
+                        <Form.Item
+                        name="Working_Mode"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Enter your Working Mode please!'
+                            }
+                        ]}
+                        style={{width:'500px'}}
+                        >
+                        <Select allowClear="true"
+                            style={{width:'400px'}}
+                              showSearch
+                              optionFilterProp="children"
+                              filterOption={(input, option) => option.children.includes(input)}
+                              filterSort={(optionA, optionB) =>
+                                  optionA.children.localeCompare(optionB.children)
+                              }
+                              onChange={(value) => {
+                                for (let i=0;i<=working_mode.length-1;i++) {
+                                  if (working_mode[i].codeMode===value) {
+                                    setdoctor({...doctor, working_mode: value});
+                                  }
+                                }
+                                if (value===undefined || value==='' ){
+                                    setdoctor({...doctor, working_mode: ''});
+                                }
+                              }}
+                          >
+                              {working_mode.map((element) => {
+                                  return <Option key={element.codeMode}  value={element.codeMode} >{element.mode}</Option>
+                              }
+                              )}
+                          </Select>
+                          </Form.Item>
                     </div>
                 )
             
@@ -386,7 +424,7 @@ export const Register = () => {
                                                     form.resetFields();
                                                     setrole('');
                                                     setdoctor({is_online: false, name:'', surname:'', speciality:'', education_organization: '', working_mode:'' })
-                                                    setpatient({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
+                                                  //  setpatient({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
                                                     setpharmacy({caption:'', address:'', phone:'', email:'', gps_coordinates:'' });
                                                 }} >
                                                 Reset options

@@ -1,18 +1,49 @@
-import { Typography} from 'antd';
-const { Title } = Typography;
-
+import s from './Home.module.css';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSearchParamData } from './../../reducers/SearchData';
 
 export const Home = () => {
-    return (
-        <div style={{textAlign: 'center'}}>
-              <Title level={5} >Welcome to the program My-receipt</Title>
-              <br/>
-              <img
-                          style={{ borderRadius: '200px', width: '272px'}}
-                          alt="logo"
-                          src= {"imgOwn.jpg" }
-                        />
+  let navigate = useNavigate();
 
-        </div>   
-        )
+
+
+  const dispatch = useDispatch(); 
+
+  useEffect(()=> {
+    let urls=['/drugs','/pharmacies', '/doctors'];
+    async function fetchData(url) {
+      //let pageData=document.getElementsByClassName('ant-pagination-item-active')[0].attributes.title.value;
+      const response = await fetch(`http://localhost:5588/api${url}`);
+      let dataS = await response.json();
+      dispatch(setSearchParamData({path:url, data:dataS}));
+
+      return dataS
+    };
+
+    for(let i=0;i<=urls.length-1;i++) {
+      fetchData(urls[i]);
+    }
+  },[dispatch]);
+
+
+    return (
+      <div className={s.HomeOwn}>
+        <div className={s.Container}>
+          <div className={s.HomeBlock} style={{textAlign: 'center'}}>
+            <div className={s.Textcontent}>
+              <p className={s.Title}>Medical care for patients, doctors, pharmacists, drug manufacturers</p>
+              <p className={s.Text}>For the Ministry of Health in the Czech Republic.</p>
+              <button onClick={()=>{navigate('/register')}} className={s.Button}>Sign up</button>
+            </div>              
+              <img
+                style={{ borderRadius: '200px', width: '500px'}}
+                alt="logo"
+                src= {"imgOwn.jpg"}
+              />
+          </div>   
+        </div>      
+      </div>      
+    )
 }

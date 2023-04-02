@@ -1,26 +1,22 @@
 import { Input, Button, Form, Typography, Select} from 'antd';
-import {  useNavigate } from "react-router-dom";
+import {  Link, useNavigate } from "react-router-dom";
 import {  useState } from 'react';
 import React from 'react';
 import { ModalWarning } from '../ModalWarning';
-import axios from 'axios';
+//import axios from 'axios';
 
 const { Option } = Select;
 const { Title }  = Typography;
-const { Paragraph }  = Typography;
-
-
 
 export const Login= () => {
 
-   const API_URL = "http://localhost:3001";
+   const API_URL = "http://localhost:5588";
 
    const [form] = Form.useForm();
-
+/*
    const instanceAPI = axios.create({
     //withCredentials: true,
     baseURL: process.env.API_URL
-    //headers: {}
     });
 
     instanceAPI.interceptors.request.use(function (config) {
@@ -42,7 +38,7 @@ export const Login= () => {
         }
         return Promise.reject(error);
     });
-    
+    */
 
    const rolesUser=[
         {code:1, role:'Doctor'}, 
@@ -65,17 +61,31 @@ export const Login= () => {
             //sessionStorage.setItem('password', data.password);
             //sessionStorage.setItem('role', data.role);
            // sessionStorage.setItem('token', data.token);
-
+          
          // navigate('/home');
 
          switch(data.role) {
             case 1 :
                 navigate('/doctorOffice');
                 break;
+                
             case 2 :
+                let patient={id: 16, login: 'patient1', password: 'p1', surname: 'Mr. Barry Gerhold', name: 'Arnulfo Fahey'};
+                sessionStorage.setItem('id',patient.id);
+                sessionStorage.setItem('login', patient.login);
+                sessionStorage.setItem('password',patient.password);
+                sessionStorage.setItem('surname',patient.surname);
+                sessionStorage.setItem('name',patient.name);
                 navigate('/patientOffice');
                 break;
-            default:
+              
+            case 3:
+               //  <Link to='/pharmacistOffice'></Link>
+                let pharmacy={id: 1, login: 'pharmacy1', password: 'p1', caption: 'Pharmacy 1'};
+                sessionStorage.setItem('id',pharmacy.id);
+                sessionStorage.setItem('login', pharmacy.login);
+                sessionStorage.setItem('password',pharmacy.password);
+                sessionStorage.setItem('name',pharmacy.caption);
                 navigate('/pharmacistOffice');
                 break;
 
@@ -91,15 +101,14 @@ export const Login= () => {
     
         if (values.login!=='' && values.password!=='' && values.role!=='') {
 
-            let params={login: values.login, password: values.password,
-                role: values.role};
+            //let params={login: values.login, password: values.password,
+            //    role: values.role};
             /*
-            const res=await fetch(`${API_URL}/login`, {
+            const res=await fetch(`${API_URL}/signIn?login=${params.login}&password=${params.password}&role=${params.role}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json;charset=utf-8'},
                 body: JSON.stringify(params)
-                          
-
+                        
             })
             const dataAccess= await res.json();
             if (dataAccess.success) {
@@ -111,7 +120,7 @@ export const Login= () => {
             }
             */
             saveData(values);
-
+    
 
         }   
     }
@@ -119,7 +128,7 @@ export const Login= () => {
 
     return (
       
-        <div style={{width:'370px'}}>
+        <div style={{width:'370px', marginTop:'20px', marginBottom:'20px'}}>
         <Form form={form} layout="vertical" name="basic" 
             
             labelCol={{
@@ -187,10 +196,6 @@ export const Login= () => {
                           </Select>
                         </Form.Item>
                         <Form.Item
-                           // wrapperCol={{
-                           // offset: 8,
-                           // span: 16,
-                           // }}
                         >
                             <div style={{display:'flex', gap:'10px', width:'200px', flexDirection:'row'}}>
                                 <Button type="primary" htmlType="submit">

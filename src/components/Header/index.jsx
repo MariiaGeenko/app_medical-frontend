@@ -1,59 +1,56 @@
-import { Layout, Menu, Tag, Button} from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import { Layout, Tag, Button} from 'antd';
+import { useNavigate, Link } from 'react-router-dom';
 //import { useSelector, useDispatch } from 'react-redux';
 import s from './Header.module.css';
-//import localforage from 'localforage';
-
+import localforage from 'localforage';
 
 
 
 export const Header = () => {
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
-
+  console.log(sessionStorage)
   const changeUser=() => {
+  
+    localforage.removeItem('drugs');
+    localforage.removeItem('pharmacies');
+    localforage.removeItem('doctors');
+    localforage.clear();
     
     sessionStorage.clear();
 
-    navigate('/home')
+    navigate('/')
     window.location.reload();
     
   }
-
-    // формирование и рендер меню
-  const items = [
-    {
-      label:<Link to='/medicines'>Medicines</Link>,
-      key: 'medicines'
-    },
-    {
-      label:<Link to='/pharmacies'>Pharmacies</Link>,
-      key: 'pharmacies'
-    },
-    {
-      label:<Link to='/doctors'>Doctors</Link>,
-      key: 'doctors'
-    }
-
-
-  ];
    
     return (
       <Layout>
         <div className={s.HeaderOwn}>
-          <Menu mode="horizontal" style={{width:'300px', visibility: (document.location.pathname !== '/login' || document.location.pathname !== '/register')?'visible':'hidden'}} items={items}/>
-          <div className={s.HeaderOwn} style={{height:'30px'}}>
-          <Tag color="blue" style={{visibility: (sessionStorage.length!==0)? 'visible': 'hidden'}}>{sessionStorage.getItem('login')}</Tag>
-          <Button size="small" style={{visibility: (sessionStorage.length!==0)? 'visible': 'hidden', margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={changeUser}>Выход</Button>
-          <Button size="small" style={{visibility: (sessionStorage.length===0)? 'visible': 'hidden', margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={()=>{navigate('/register')}}>Sign up</Button>
-          <Button size="small" style={{visibility: (sessionStorage.length===0)? 'visible': 'hidden', margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={()=>{navigate('/login')}}>Sign in</Button>
-          </div>
-          
-        </div>
-        
-  
+          <div className={s.Container}>            
+            <div className={s.Header}> 
+              <img className={s.Logo} onClick={()=>{navigate('/')}} src="Logo.png" alt="My receipt"/>     
+              <div className={s.HeaderContent} style={{height:'30px'}}>
+                <ul className={s.MenuList}>
+                  <li className={s.MenuItem} onClick={()=>{navigate('/medicines')}}>Medicines</li>
+                  <li className={s.MenuItem} onClick={()=>{navigate('/pharmacies')}}>Pharmacies</li>
+                  <li className={s.MenuItem} onClick={()=>{navigate('/doctors')}}>Doctors</li>
+                </ul>
+                <button className={s.ButtonLog} style={{display:(sessionStorage.length!==0)?'none':null}} onClick={()=>{navigate('/register')}}>Sign up</button>
+                <button className={s.ButtonSign} style={{display:(sessionStorage.length!==0)?'none':null}} onClick={()=>{navigate('/login')}}>Sign in</button>   
+                <Tag color="#108ee9" className={s.ButtonSign} 
+                  style={{ display:((sessionStorage.length===0))?'none':null}}>
+                  <Link to={(sessionStorage.length!==0 && sessionStorage.getItem('login').includes('patient')===true)?'/patientOffice':'/pharmacistOffice'}>{(sessionStorage.length!==0 && sessionStorage.getItem('login').includes('patient')===true)?sessionStorage.getItem('surname')+' '+sessionStorage.getItem('name'):sessionStorage.getItem('name')}</Link></Tag>
+                <button className={s.ButtonSign} size="small" style={{display:(window.sessionStorage.length===0)?'none':null, margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={changeUser}>Sign out</button>
+                
+                <div className={s.HeaderOwn} style={{height:'30px'}}>
+                  
+              </div>                
+              </div> 
+            </div>            
+          </div>     
+        </div>           
       </Layout>
     )
-
 }
