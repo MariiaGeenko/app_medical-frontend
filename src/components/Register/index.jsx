@@ -2,6 +2,7 @@ import { Input, Button, Form, Typography, Select} from 'antd';
 import {  useNavigate } from "react-router-dom";
 import {  useState } from 'react';
 import React from 'react';
+import s from './Register.module.css';
 
 const { Option } = Select;
 const { Title }  = Typography;
@@ -298,8 +299,8 @@ export const Register = () => {
 
     return (
       
-        <div style={{width:'370px'}}>
-        <Form form={form} layout="vertical" name="basic" 
+        <div className={s.wrapper}>
+        <Form className={s.form}  form={form} layout="vertical" name="basic" 
             
             labelCol={{
                 span: 8,
@@ -312,11 +313,10 @@ export const Register = () => {
                 remember: true
             }}
             onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-           
+            onFinishFailed={onFinishFailed}         
             
             >
-                        <Title level={5} style={{marginBottom:'20px'}}>Registration</Title> 
+                        <h5 className={s.title}>Registration</h5> 
                         <Form.Item
                         label='Login'
                         name="login"
@@ -378,19 +378,17 @@ export const Register = () => {
                         {SetRoleParams()}
                         <Form.Item
                         >
-                            <div style={{display:'flex', gap:'10px', width:'200px', flexDirection:'row', paddingTop:'20px'}}>
-                                <Button type="primary" htmlType="submit">
-                               Save
-                                </Button>
-                                <Button onClick={()=> {
-                                                    form.resetFields();
-                                                    setrole('');
-                                                    setdoctor({is_online: false, name:'', surname:'', speciality:'', education_organization: '', working_mode:'' })
-                                                    setpatient({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
-                                                    setpharmacy({caption:'', address:'', phone:'', email:'', gps_coordinates:'' });
-                                                }} >
-                                                Reset options
-                                            </Button> 
+                            <div className={s.buttons}>
+                                <Button className={s.button} htmlType="submit">Save</Button>
+                                <Button className={s.button} onClick={()=> {
+                                    form.resetFields();
+                                    setrole('');
+                                    setdoctor({is_online: false, name:'', surname:'', speciality:'', education_organization: '', working_mode:'' })
+                                    setpatient({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
+                                    setpharmacy({caption:'', address:'', phone:'', email:'', gps_coordinates:'' });
+                                }} >
+                                    Reset options
+                                </Button> 
                             </div>
                         </Form.Item>
                       

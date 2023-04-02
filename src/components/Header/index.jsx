@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import s from './Header.module.css';
 //import localforage from 'localforage';
 
-
-
 export const Header = () => {
 
   let navigate = useNavigate()
@@ -22,8 +20,10 @@ export const Header = () => {
                   <li className={s.MenuItem} onClick={()=>{navigate('/pharmacies')}}>Pharmacies</li>
                   <li className={s.MenuItem} onClick={()=>{navigate('/doctors')}}>Doctors</li>
                 </ul>
-                <button className={s.ButtonLog}  onClick={()=>{navigate('/register')}}>Log in</button>
-                <button className={s.ButtonSign} onClick={()=>{navigate('/login')}}>Sign in</button>                   
+                <div className={s.buttons}>
+                  <button className={s.ButtonLog}  onClick={()=>{navigate('/register')}}>Log in</button>
+                  <button className={s.ButtonSign} onClick={()=>{navigate('/login')}}>Sign in</button>     
+                </div>              
               </div> 
             </div>            
           </div>     

@@ -127,9 +127,6 @@ export const PatientOffice = () => {
       {title: 'Medicines count', key:'countDrug', dataIndex: 'countDrug', width: '0%',  ...getColumnSearchProps('countDrug'), sorter: (a, b) => a.countDrug - b.countDrug, sortDirections: ['descend', 'ascend']}
     ];
 
-
-
-
     return (
         <div>
             <Title level={5} style={{marginBottom:'20px', textAlign:'center'}}>Patient Office</Title>
@@ -195,8 +192,8 @@ export const PatientOffice = () => {
                           <Table style={{display:(drug.drugCode!=='')?null:'none'}} dataSource={drug.info} columns={columns} />
                           
             </div>
-        </div>
-       
+
+          </div> 
 
 
         

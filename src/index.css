@@ -16,3 +16,12 @@ code {
   font-family: 'c39';
   src: url('./../fonts/c39hrp48dhtt.ttf');
 }
+
+.container{
+  max-width: 1200px;
+  margin: 25px auto;
+}
+
+.content{
+  background-color: white;
+}

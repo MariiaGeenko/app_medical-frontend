@@ -14,13 +14,9 @@ export const Home = () => {
               <p className={s.Text}>For the Ministry of Health in the Czech Republic.</p>
               <button onClick={()=>{navigate('/register')}} className={s.Button}>Log in</button>
             </div>              
-              <img
-                style={{ borderRadius: '200px', width: '500px'}}
-                alt="logo"
-                src= {"imgOwn.jpg"}
-              />
+              <img className={s.Image} alt="logo" src= {"imgOwn.jpg"}/>
           </div>   
         </div>      
-      </div>      
+      </div>    
     )
 }

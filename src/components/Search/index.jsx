@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { setSearchParamData, setSearchData, clearSearchData } from './../../reducers/SearchData';
 import { BallTriangle } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
+import s from './Index.module.css';
 
 export const Search = () => {
 
@@ -97,39 +98,30 @@ export const Search = () => {
 
         return (
           <div>
-            <div style={{display:'flex', flexDirection:'column'}}>
-              <Button style={{width:'300px', marginBottom:'25px'}}><Link to='/'>Return to main page</Link></Button>
-              <Input placeholder='Search' style={{width:'300px', marginBottom:'25px'}}  onChange={(e) => {
-                        settag(e.target.value);
+            <Input placeholder='Search' style={{width:'300px', marginBottom:'25px'}}  onChange={(e) => {settag(e.target.value);}}/>
 
-                    }}/>
-            </div>
-
-             <List
-                grid={{
-                gutter: 16,
-                column: 4,
-                }}
-                pagination={{
-                    pageSize: 10,
-                  }}
-                dataSource={SearchData.filter(item => item['description_url'].includes(String(tag))===true)}
-                renderItem={(item) => (
-                <List.Item
-                    key={item.title}>
-                    <Card title={item.description_url}>
-                        <Image
-                          width={272}
-                          alt="logo"
-                          src= {`${item.img}`}
-                        />
-                        <br/>
-                        {item.name}</Card>
+            <List className={s.list}
+              grid={{
+              gutter: 16,
+              column: 4,
+              }}
+              pagination={{
+                pageSize: 10,
+              }}
+              dataSource={SearchData.filter(item => item['description_url'].includes(String(tag))===true)}
+              renderItem={(item) => (
+              <List.Item
+                key={item.title}>
+                  <Card title={item.description_url}>
+                    <Image
+                      alt="logo"
+                      src= {`${item.img}`}
+                    />
+                    <br/>
+                    {item.name}</Card>
                 </List.Item>
-                )}
-              
-            />
-           
+                )}              
+            />           
         </div>
       
         )
@@ -145,9 +137,7 @@ export const Search = () => {
 
     return (
       <div >
-         {DataLoader()}   
-        
+         {DataLoader()} 
       </div>
-    
-      )  
+    )  
 }
