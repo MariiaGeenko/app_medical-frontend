@@ -2,25 +2,23 @@
 import { Layout } from 'antd';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { BrowserRouter } from 'react-router-dom'; 
+import { BrowserRouter } from 'react-router-dom';
 import { Content } from 'antd/es/layout/layout';
 import { RoutesAll } from './RoutesAll';
 
 function App() {
   return (
     <BrowserRouter>
-    <Layout className="layout" >
-        <Header/>   
-        <Layout>
-          <Content>
-              <RoutesAll />
+      <Layout className="layout">
+        <Header />
+        <Layout className="content">
+          <Content className="container">
+            <RoutesAll />
           </Content>
         </Layout>
-          <Footer/>
-    </Layout>
-
-  </BrowserRouter>
-
+        <Footer />
+      </Layout>
+    </BrowserRouter>
   );
 }
 

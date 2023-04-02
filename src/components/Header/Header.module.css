@@ -1,67 +1,68 @@
-.Container{
+.Container {
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.HeaderOwn{
+.HeaderOwn {
     background-color: white;
 }
 
-.HeaderContent{
+.HeaderContent {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.Header{
+.Header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-top: 10px;
 }
 
-.Logo{
+.Logo {
     cursor: pointer;
     width: 95px;
     height: 70px;
 }
 
-.ButtonLog{
+.ButtonLog {
     border: 1px rgb(37, 37, 99) solid;
     background-color: white;
-    color: rgb(37, 37, 99);    
+    color: rgb(37, 37, 99);
 }
 
-.ButtonSign{
+.ButtonSign {
     background-color: rgb(37, 37, 99);
-    color: white;   
+    color: white;
     border: 1px rgb(37, 37, 99) solid;
     margin-left: 25px;
 }
 
-.ButtonLog,.ButtonSign{
+.ButtonLog,
+.ButtonSign {
     padding: 10px 20px;
     font-size: 15px;
     box-sizing: border-box;
-    cursor: pointer;    
+    cursor: pointer;
     border-radius: 50px;
     transition: all 0.3s ease 0s;
     font-weight: 600;
 }
 
-.ButtonLog:hover{
+.ButtonLog:hover {
     background-color: rgb(37, 37, 99);
-    color: white;   
+    color: white;
     border: 1px rgb(37, 37, 99) solid;
 }
 
-.ButtonSign:hover{
+.ButtonSign:hover {
     border: 1px rgb(37, 37, 99) solid;
     background-color: white;
-    color: rgb(37, 37, 99);   
+    color: rgb(37, 37, 99);
 }
 
-.MenuList{
+.MenuList {
     list-style: none;
     display: flex;
     align-items: center;
@@ -69,31 +70,85 @@
     margin-right: 30px;
 }
 
-.MenuList li{
+.MenuList li {
     margin-left: 20px;
     font-size: 15px;
-    color: rgb(37, 37, 99);  
+    color: rgb(37, 37, 99);
     font-weight: 700;
     cursor: pointer;
 }
 
 .MenuList li {
-	position: relative;
-	line-height: 1; 
+    position: relative;
+    line-height: 1;
 
 }
+
 .MenuList li:after {
-	display: block;
-	position: absolute;
-	left: 0; 
-	width: 0;
-	height: 2px; 
-	background-color: rgb(37, 37, 99);  
-	content: "";
-	transition: width 0.3s ease-out; 
+    display: block;
+    position: absolute;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: rgb(37, 37, 99);
+    content: "";
+    transition: width 0.3s ease-out;
 }
 
 .MenuList li:hover:after,
 .MenuList li:focus:after {
-	width: 100%; 
+    width: 100%;
+
+}
+
+@media (max-width: 1250px) {
+    .HeaderOwn {
+        padding: 0px 25px;
+    }
+}
+
+@media (max-width: 690px) {
+    .Header {
+        height: 60px;
+    }
+
+    .Logo {
+        display: none;
+    }
+
+    .ButtonLog,
+    .ButtonSign {
+        padding: 10px 10px;
+        font-size: 14px;
+    }
+
+    .HeaderContent {
+        justify-content: center;
+    }
+
+    .MenuList li {
+        margin-left: 10px;
+        font-size: 14px;
+    }
+
+    .MenuList {
+        padding-left: 0px;
+    }
+
+    .Header {
+        justify-content: center;
+    }
+}
+
+
+@media (max-width: 460px) {
+    .Header {
+        height: 90px;
+        align-items: flex-start;
+    }
+
+    .HeaderContent {
+        flex-wrap: wrap;
+    }
+
 }

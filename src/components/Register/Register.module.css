@@ -1,0 +1,38 @@
+.wrapper{
+    width: 370px;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 170px;
+}
+
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button{
+    background-color: rgb(37, 37, 99);
+    color: white;   
+    border: 1px rgb(37, 37, 99) solid;
+    width: 110px;
+    transition: all 0.3s ease 0s;
+}
+
+.button:hover{
+    border: 1px rgb(37, 37, 99) solid;
+    background-color: white;
+    color: rgb(37, 37, 99);   
+}
+
+.title{
+    font-size: 28px;
+    color: rgba(0, 0, 0, 0.88);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: 197px;
+}
