@@ -1,8 +1,10 @@
+import { Layout} from 'antd';
 import s from './Footer.module.css';
 //import localforage from 'localforage';
 
 export const Footer = () => {  
     return (
+      <Layout>
           <div className={s.FooterOwn}>
             <div className={s.Container}>
               <div className={s.FooterMenu}>
@@ -16,6 +18,7 @@ export const Footer = () => {
                 </div>
               </div>    
             </div>                     
-          </div> 
+          </div>         
+      </Layout>
     )
 }

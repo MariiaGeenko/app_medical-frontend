@@ -1,14 +1,14 @@
-.Container {
+.Container{
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.FooterOwn {
+.FooterOwn{
     background-color: rgb(37, 37, 99);
     color: white;
 }
 
-.FooterMenu {
+.FooterMenu{
     list-style: none;
     display: flex;
     flex: 0 1 50%;
@@ -18,27 +18,26 @@
 }
 
 @media (max-width: 1250px) {
-    .FooterOwn {
-        padding: 0px 25px;
+    .FooterOwn{   
+        padding: 0px 25px;  
     }
 }
 
-@media (max-width: 690px) {
-    .FooterMenu {
+@media (max-width: 690px) {  
+    .FooterMenu{
         font-size: 14px;
     }
 }
 
 
-@media (max-width: 460px) {
-    .FooterMenu {
+@media (max-width: 460px) {  
+    .FooterMenu{
         flex-wrap: wrap;
         justify-content: center;
         text-align: center;
     }
 
-    .Footercolumn:not(:last-child) {
+    .Footercolumn:not(:last-child){
         margin-bottom: -15px;
     }
-
 }
