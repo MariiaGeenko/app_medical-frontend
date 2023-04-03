@@ -103,18 +103,20 @@
     }
 }
 
+@media (max-width: 746px) {  
+    .ButtonLog,.ButtonSign{
+       display: none;
+    }
+}
+
 @media (max-width: 690px) {  
     .Header{
         height: 60px;
     }
 
     .Logo{
-        display: none;
-    }
-
-    .ButtonLog,.ButtonSign{
-        padding: 10px 10px;
-        font-size: 14px;
+        width: 75px;
+        height: 45px;
     }
 
     .HeaderContent{
@@ -134,7 +136,6 @@
         justify-content: center;
     }
 }
-
 
 @media (max-width: 460px) {  
     .Header{

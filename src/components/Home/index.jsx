@@ -35,7 +35,10 @@ export const Home = () => {
             <div className={s.Textcontent}>
               <p className={s.Title}>Medical care for patients, doctors, pharmacists, drug manufacturers</p>
               <p className={s.Text}>For the Ministry of Health in the Czech Republic.</p>
-              <button onClick={()=>{navigate('/register')}} className={s.Button}>Sign up</button>
+              <div className={s.buttons}>
+                <button onClick={()=>{navigate('/register')}} className={s.ButtonSign}>Sign up</button>
+                <button onClick={()=>{navigate('/login')}} className={s.ButtonLog}>Sign in</button>
+              </div>
             </div>              
             <img className={s.Image} alt="logo" src= {"imgOwn.jpg"}/>
           </div>   
