@@ -1,39 +1,59 @@
 import { Form, Input, Modal, Button, Table, Select, Checkbox } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState  } from 'react';
+import { useEffect, useState, useRef  } from 'react';
 import { clearselectedRowKeys } from '../../reducers/selectedRowKeys';
 
 export const ChangeReceiptStatus = ({open, onCancel, receipts}) => {
     
-    const dispatch = useDispatch();
     const [ReceiptChange, setReceiptChange]=useState({id:'', status_id:'', status:''});
     const selectedRowKeys = useSelector(state => state.selectedRowKeys.selectedRowKeys);
     const { Option } = Select;
-    //console.log(receipts.filter(e => selectedRowKeys.includes(e.id)).map(e =>{return <Option key={e.key}  value={e.key} >{e.name}</Option>}));
 
-    
-    /*
-    useEffect(()=> {
-        let data=[];
-        for(let i=0;i<=receipts.length-1;i++) {
-            for (let j=0;j<=selectedRowKeys.length-1;j++) {
-                if(receipts[i].id===selectedRowKeys[j]) {
-                    data.push();
-                }
-            }
+    const [form] = Form.useForm();
+ 
+    const useResetFormOnCloseModal = ({form, open}) => {
+      const prevOpenRef = useRef();
+      useEffect(() => {
+        prevOpenRef.current = open;
+      }, [open]);
+      const prevOpen = prevOpenRef.current;
+
+     
+      useEffect(() => {
+     
+        if (!open && prevOpen) {
+          
+            setReceiptChange({id:'', status_id:'', status:''})
         }
-    },[]);
-    */
+        if (open) {
+         form.resetFields(); 
+
+        }
+               
+      });
+   
+    };
+   
+    useResetFormOnCloseModal({
+      form,
+      open
+    });
+
+
     return (
         <Modal open={open} onCancel={onCancel} title={"Change Receipt Status: "}
         footer ={[
-                <Button key="back" onClick={onCancel}>
+                <Button key="submit" onClick={onCancel}>
                 ОК
                 </Button>
             ]}
             > 
+        
                 <div style={{display:'flex', gap:'20px'}}>
-                <Select allowClear="true"
+                <Form form={form} layout="vertical" method={'post'} action={'/change'} name="userForm" 
+                >  
+                    <Form.Item>
+                    <Select allowClear="true"
                               showSearch
                               optionFilterProp="children"
                               filterOption={(input, option) => option.children.includes(input)}
@@ -47,15 +67,36 @@ export const ChangeReceiptStatus = ({open, onCancel, receipts}) => {
                                         setReceiptChange({...ReceiptChange, id:value, status:receipts[i].status })
                                     }
                                 }
+
                               }}
                             >
                               {receipts.filter(e => selectedRowKeys.includes(e.id)).map(e =>{return <Option key={e.key} style={{fontFamily:'c39',fontSize:'56px'}} value={e.key} >{e.name}</Option>}) }
                           </Select>
-                       
-                </div>
-                           
-                
-            
+                    </Form.Item>
+                    <Form.Item>
+                    <Select allowClear="true"
+                              placeholder={(ReceiptChange.status!=='')?ReceiptChange.status:''}
+                              showSearch
+                              optionFilterProp="children"
+                              filterOption={(input, option) => option.children.includes(input)}
+                              filterSort={(optionA, optionB) =>
+                                  optionA.children.localeCompare(optionB.children)
+                              }
+                              style={{width:'200px'}}
+
+                              onChange={(value) => {
+
+                              }}
+                            >
+                              {[
+                                {code:1, status:'issued'},
+                                {code:2, status:'not received'},
+                                {code:3, status:'archive'},
+                                ].map(e =>{return <Option key={e.code} value={e.code} >{e.status}</Option>}) }
+                          </Select>
+                    </Form.Item>
+                    </Form>
+                </div>          
         </Modal>
     )
     

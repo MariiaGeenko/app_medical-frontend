@@ -122,16 +122,13 @@
     .HeaderContent{
         justify-content: center;
     }
-
     .MenuList li{
         margin-left: 10px;
         font-size: 14px;
     }
-
     .MenuList{
         padding-left: 0px;
     }
-
     .Header{
         justify-content: center;
     }
@@ -142,7 +139,6 @@
         height: 90px;
         align-items: flex-start;
     }
-
     .HeaderContent{
         flex-wrap: wrap;
     }

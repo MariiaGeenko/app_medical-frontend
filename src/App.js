@@ -18,7 +18,6 @@ function App() {
         </Layout>
           <Footer/>
     </Layout>
-
   </BrowserRouter>
 
   );
