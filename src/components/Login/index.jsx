@@ -4,7 +4,7 @@ import {  useState } from 'react';
 import React from 'react';
 import { ModalWarning } from '../ModalWarning';
 import s from './Login.module.css';
-//import axios from 'axios';
+import axios from 'axios';
 
 const { Option } = Select;
 
@@ -13,6 +13,34 @@ export const Login= () => {
    const API_URL = "http://localhost:5588";
 
    const [form] = Form.useForm();
+/*
+   const instanceAPI = axios.create({
+    //withCredentials: true,
+    baseURL: API_URL
+    });
+
+    instanceAPI.interceptors.request.use(function (config) {
+
+        config.headers.authorization = `Bearer ${localStorage.getItem('token')}`
+        return config;
+    }, function (error) {
+        // Do something with request error
+        console.log('Ошибка в axios интерсепторе ')
+        console.log(error)
+        return Promise.reject(error);
+    });
+    instanceAPI.interceptors.response.use(response => response, error => {
+        const status = error.response ? error.response.status : null
+    
+    
+        if (status === 401) {
+            localStorage.removeItem('token')
+        }
+        return Promise.reject(error);
+    });
+
+    
+    
 /*
    const instanceAPI = axios.create({
     //withCredentials: true,
@@ -66,6 +94,12 @@ export const Login= () => {
 
          switch(data.role) {
             case 1 :
+                let doctor={id:1, login: 'doctor1', password: 'd1', surname: 'Mina Kuvalis', name: 'Rosemarie Koelpin III'}
+                sessionStorage.setItem('id',doctor.id);
+                sessionStorage.setItem('login', doctor.login);
+                sessionStorage.setItem('password',doctor.password);
+                sessionStorage.setItem('surname',doctor.surname);
+                sessionStorage.setItem('name',doctor.name);
                 navigate('/doctorOffice');
                 break;
                 
@@ -93,7 +127,15 @@ export const Login= () => {
            
         
     }
-
+/*
+    const loginAPI=(email, password, role) =>{
+            return instanceAPI.post('/login', {
+                email: email,
+                password: password,
+                role: role
+            })
+       }
+    */
 
     
     const onFinish = async (values) => {
@@ -101,6 +143,25 @@ export const Login= () => {
     
         if (values.login!=='' && values.password!=='' && values.role!=='') {
 
+            let {email, password, role} = values
+
+            console.log(values)
+/*
+                    await loginAPI(email, password, role)
+                        .then((response) => {
+                          //  dispatch(setAuthData(response.data.user))
+                          //  dispatch(setToken(response.data.token))
+                          //  history.push(HOME_ROUTE)
+                          console.log(response);
+                          saveData(response); 
+                        })
+                        .catch((error) => {
+                            if (error.response) {
+                               return error.response.data.message;
+                            }
+                        })
+            
+                };
             //let params={login: values.login, password: values.password,
             //    role: values.role};
             /*
@@ -119,10 +180,10 @@ export const Login= () => {
                 setIsModalOpen({...IsModalOpen, warning: true , warningText: "Невозможно найти такого пользователя!"})
             }
             */
-            saveData(values);
+           saveData(values);
     
-
-        }   
+        }
+          
     }
 
 

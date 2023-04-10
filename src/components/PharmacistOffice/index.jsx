@@ -6,8 +6,8 @@ import { SearchOutlined} from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { BallTriangle } from 'react-loader-spinner';
 import { ModalWarning } from '../ModalWarning';
-import { ChangeReceiptStatus } from './ChangeReceiptStatus';
-import { setSelectedRowKeys} from './../../reducers/selectedRowKeys';
+import { ChangeReceiptStatus } from './../ChangeReceiptStatus';
+import { clearselectedRowKeys, setSelectedRowKeys} from './../../reducers/selectedRowKeys';
 
 const { Title }  = Typography;
 const { Paragraph }  = Typography;
@@ -79,7 +79,7 @@ export const PharmacistOffice= () => {
         for(let k=0; k<=drugs.length-1;k++) {
           if(receipts[i].doctor_id===doctors[j].id && receipts[i].drug_id===drugs[k].id) {
             receiptInfo.push({id: receipts[i].id, key: receipts[i].id, name:receipts[i].name,
-              doctor:`${doctors[j]['surname']} ${doctors[j]['name']} (${doctors[j]['caption']})`, drug:drugs[k].name, status_id:receipts[i].receipt_status_id, status:receipts[i].receipt_status})
+              doctor:`${doctors[j]['surname']} ${doctors[j]['name']} (${doctors[j]['caption_speciality']})`, drug:drugs[k].name, status_id:receipts[i].receipt_status_id, status:receipts[i].receipt_status})
           }
         }
       }
@@ -244,7 +244,10 @@ export const PharmacistOffice= () => {
                             (selectedRowKeys.length===0) ? setIsModalOpen({...IsModalOpen, warning: true, warningText: "Choose receipts to change status" }) : setIsModalOpen({...IsModalOpen, changeStatus: true })
                           }}>Change Receipt's status</Button>
                           <ModalWarning open={IsModalOpen.warning}  onCancelModal={() => {setIsModalOpen({...IsModalOpen, warning: false })}} mess={IsModalOpen.warningText}/>
-                          <ChangeReceiptStatus open={IsModalOpen.changeStatus}  onCancel={() => {setIsModalOpen({...IsModalOpen, changeStatus: false })}} receipts={receiptsOwn}/>            
+                          <ChangeReceiptStatus open={IsModalOpen.changeStatus}  onCancel={() => {
+                            setIsModalOpen({...IsModalOpen, changeStatus: false })
+                            dispatch(clearselectedRowKeys())
+                            }} receipts={receiptsOwn}/>            
             </div>
         </div>
       )

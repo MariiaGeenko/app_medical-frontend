@@ -82,7 +82,7 @@ export const Search = ({path}) => {
                                   <Image style={{padding:'15px'}}
                     
                                     width={300}
-                                    height={230}
+                                    height={200}
                                     alt="logo"
                                     src= {(path==='/medicines')?'drugs.jpg':(path==='/pharmacies')?'pharmacies.jpg':'doctors.jpg'}
                                   />

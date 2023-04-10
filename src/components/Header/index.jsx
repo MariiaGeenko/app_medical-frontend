@@ -1,5 +1,5 @@
 import { Layout, Tag, Button} from 'antd';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 //import { useSelector, useDispatch } from 'react-redux';
 import s from './Header.module.css';
 import localforage from 'localforage';
@@ -42,12 +42,13 @@ export const Header = () => {
                   <button className={s.ButtonSign} style={{display:(sessionStorage.length!==0)?'none':null}} onClick={()=>{navigate('/login')}}>Sign in</button>   
                   <Tag color="#108ee9" className={s.ButtonSign} 
                     style={{ display:((sessionStorage.length===0))?'none':null}}>
-                    <Link to={(sessionStorage.length!==0 && sessionStorage.getItem('login').includes('patient')===true)?'/patientOffice':'/pharmacistOffice'}>{(sessionStorage.length!==0 && sessionStorage.getItem('login').includes('patient')===true)?sessionStorage.getItem('surname')+' '+sessionStorage.getItem('name'):sessionStorage.getItem('name')}</Link></Tag>
+                    <Link to={(sessionStorage.length!==0 && sessionStorage.getItem('login').includes('patient')===true)?'/patientOffice':(sessionStorage.length!==0 && sessionStorage.getItem('login').includes('doctor')===true)?'/doctorOffice':'/pharmacistOffice'}>{(sessionStorage.length!==0 && (sessionStorage.getItem('login').includes('patient') || (sessionStorage.getItem('login').includes('doctor'))===true)?sessionStorage.getItem('surname')+' '+sessionStorage.getItem('name'):sessionStorage.getItem('name'))}</Link></Tag>
+                  <a href="http://localhost:5588/admin" className={s.ButtonSign} style={{display:(sessionStorage.length!==0 && sessionStorage.getItem('login').includes('doctor')===true)?null:'none'}}>Admin</a>   
                   <button className={s.ButtonSign} size="small" style={{display:(window.sessionStorage.length===0)?'none':null, margin: '0 16px', verticalAlign: 'middle', border:'none'}} onClick={changeUser}>Sign out</button>
                 </div>
                 <div className={s.HeaderOwn} style={{height:'30px'}}>
                   
-              </div>                
+                </div>                
               </div> 
             </div>            
           </div>     

@@ -36,3 +36,39 @@
     line-height: 1.5;
     margin-top: 197px;
 }
+
+@media (max-width: 746px) {  
+    .title{
+        margin-top: 97px;
+    }
+
+    .form{
+        margin-bottom: 70px;
+    }
+}
+
+@media (max-width: 546px) {  
+    .title{
+        margin-top: 57px;
+    }
+
+    .form{
+        margin-bottom: 50px;
+    }
+}
+
+
+@media (max-width: 440px) {  
+    .wrapper{
+        padding: 0px 15px;
+        width: 320px;
+    }
+
+    .title{
+        margin-top: 17px;
+    }
+
+    .form{
+        margin-bottom: 30px;
+    }
+}

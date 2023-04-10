@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { SearchOutlined} from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 import { BallTriangle } from 'react-loader-spinner';
+import s from './PatientOffice.module.css';
 const { Title }  = Typography;
 const { Paragraph }  = Typography;
 const { Option } = Select;
@@ -14,7 +15,7 @@ export const PatientOffice = () => {
 
   const drugs = useSelector(state => state.Search.drugs);
   //const pharmacies = useSelector(state => state.Search.pharmacies);
- // const doctors = useSelector(state => state.Search.doctors);
+  const doctors = useSelector(state => state.Search.doctors);
 
   let patientSession={id:sessionStorage.getItem('id'), name: sessionStorage.getItem('name'), surname: sessionStorage.getItem('surname')};
 
@@ -24,7 +25,7 @@ export const PatientOffice = () => {
     surname:patientSession.surname,
     insurance_number: '',
     sicklists: [],
-    receipts: []
+  // receipts: []
   });
 
   const [sicklists, setsicklists] = useState([]);
@@ -35,7 +36,7 @@ export const PatientOffice = () => {
       //let pageData=document.getElementsByClassName('ant-pagination-item-active')[0].attributes.title.value;
       const response = await fetch(`http://localhost:5588/api/patients/${url}`);
       let dataS = await response.json();
-      console.log(dataS);
+
 
       return dataS
     };
@@ -44,34 +45,32 @@ export const PatientOffice = () => {
       setsicklists(value)
     });
 
-    fetchData(`${patientInfo.id}/receipts`).then((value)=> {
-      setreceipts(value)
-    });
+  //  fetchData(`${patientInfo.id}/receipts`).then((value)=> {
+    //  setreceipts(value)
+   // });
 
    
   },[patientInfo.id]);
 
-  console.log(sicklists);
-  console.log(receipts);
-/*
+
  useEffect(()=> {
   let sicklistsOwn=[];
     for(let i=0; i<=sicklists.length-1;i++) {
       for(let j=0;j<=doctors.length-1;j++) {
-        console.log(sicklists[i].doctor_id===doctors[j].id);
-        if(sicklists[i].doctor_id===doctors[j].id){
-          console.log(1);
-          sicklistsOwn.push({key: sicklists[i].diagnosis_name, doctor: `${doctors[j].surname} ${doctors[j].name} (${doctors[j].caption_speciality})`,
-            diagnosis: sicklists[i].diagnosis_name, datein: sicklists[i].datein, dateout: sicklists[i].dateout
-        });
+        for(let k=0;k<=drugs.length-1;k++) {
+          if(sicklists[i].doctor_id===doctors[j].id && sicklists[i].drug_id===drugs[k].id){
+            sicklistsOwn.push({key: sicklists[i].diagnosis_name, doctor: `${doctors[j].surname} ${doctors[j].name} (${doctors[j].caption_speciality})`,
+              diagnosis: sicklists[i].diagnosis_name, datein: sicklists[i].datein, dateout: sicklists[i].dateout, receipt_name: sicklists[i].receipt_name,
+              drug: drugs[k].name, receipt_status: sicklists[i].receipt_status
+            });
+          }
         }
       }
     }
-    console.log(sicklistsOwn);
-    setsicklists(sicklistsOwn);
-  },[doctors]);// eslint-disable-line react-hooks/exhaustive-deps
-console.log(sicklists);
-*/
+
+    setreceipts(sicklistsOwn);
+  },[doctors, sicklists]);// eslint-disable-line react-hooks/exhaustive-deps
+console.log(receipts);
 
 
     const [searchText, setSearchText] = useState('');
@@ -170,9 +169,13 @@ console.log(sicklists);
 
     let columns= [
       {title: 'Doctor', key:'doctor',  dataIndex: 'doctor', width: '15%',  ...getColumnSearchProps('doctor'),  sorter: (a, b) =>  a.doctor.toLowerCase().localeCompare(b.doctor.toLowerCase()), sortDirections: ['descend', 'ascend']},
-      {title: 'Diagnosis', key:'diagnosis_name',  dataIndex: 'diagnosis_name', width: '15%',  ...getColumnSearchProps('diagnosis_name'),  sorter: (a, b) =>  a.diagnosis_name.toLowerCase().localeCompare(b.diagnosis_name.toLowerCase()), sortDirections: ['descend', 'ascend']},
+      {title: 'Diagnosis', key:'diagnosis',  dataIndex: 'diagnosis', width: '15%',  ...getColumnSearchProps('diagnosis'),  sorter: (a, b) =>  a.diagnosis.toLowerCase().localeCompare(b.diagnosis.toLowerCase()), sortDirections: ['descend', 'ascend']},
       {title: 'Date in', key:'datein', dataIndex: 'datein', width: '0%',  ...getColumnSearchProps('datein'), sorter: (a, b) => new Date(a.datein) - new Date(b.datein), sortDirections: ['descend', 'ascend']},
-      {title: 'Date out', key:'dateout', dataIndex: 'dateout', width: '0%',  ...getColumnSearchProps('dateout'), sorter: (a, b) => new Date(a.dateout) - new Date(b.dateout), sortDirections: ['descend', 'ascend']}
+      {title: 'Date out', key:'dateout', dataIndex: 'dateout', width: '0%',  ...getColumnSearchProps('dateout'), sorter: (a, b) => new Date(a.dateout) - new Date(b.dateout), sortDirections: ['descend', 'ascend']},
+      {title: 'Receipt', className:`${s.receiptCode}`,key:'receipt_name', dataIndex: 'receipt_name', width: '15%' , ...getColumnSearchProps('receipt_name'),  sorter: (a, b) =>  a.receipt_name.toLowerCase().localeCompare(b.receipt_name.toLowerCase()), sortDirections: ['descend', 'ascend']},
+      {title: 'Prescription medication', key:'drug', dataIndex: 'drug', width: '0%',  ...getColumnSearchProps('drug'), sorter: (a, b) => a.drug.toLowerCase().localeCompare(b.drug.toLowerCase()), sortDirections: ['descend', 'ascend']},
+      {title: "Receipt's status", key:'receipt_status', dataIndex: 'receipt_status', width: '0%',  ...getColumnSearchProps('receipt_status'), sorter: (a, b) => a.receipt_status.toLowerCase().localeCompare(b.receipt_status.toLowerCase()), sortDirections: ['descend', 'ascend']},
+    
     ];
    const DataLoader = () => {
     if(sicklists.length!==0 && receipts.length!==0) {
@@ -185,7 +188,7 @@ console.log(sicklists);
               <Input style={{paddingBottom:'20px'}} addonBefore="Insurance number" value={sicklists[0].insurance}/>
           </div>
                 <Title level={5}>Sicklists</Title>
-                <Table style={{width:'800px'}} dataSource={sicklists} columns={columns} 
+                <Table style={{width:'800px'}} dataSource={receipts} columns={columns} 
                           pagination={{
                             pageSize: 5,
                           }}

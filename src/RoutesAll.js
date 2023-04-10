@@ -38,7 +38,8 @@ export const RoutesAll = (props) => {
             <Route key='E4' path='/doctorOffice' element={<DoctorOffice/>}/>
             <Route key='E5' path='/patientOffice' element={<PatientOffice/>}/>
             <Route key='E6' path='/pharmacistOffice' element={<ProtectedRoute user={sessionStorage.getItem('login')}  redirectPath='/login'><PharmacistOffice/></ProtectedRoute>}/>
-        </Routes> 
+            
+       </Routes> 
     
     )
 
