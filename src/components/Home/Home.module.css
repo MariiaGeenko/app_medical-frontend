@@ -1,17 +1,8 @@
-.Container{
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.HomeOwn{
-    padding: 174px 0px;   
-    background-color: white;
-}
-
 .HomeBlock{   
     display: flex;
     justify-content: space-between;
-    align-items: center;     
+    align-items: center; 
+    margin: 65px 0px;
 }
 
 .Textcontent{
@@ -21,15 +12,44 @@
 .Title{
     font-size: 35px;
     max-width: 500px;
-    color: rgb(237, 108, 16);
+    color: #006c84;
     font-weight: 700;
 }
 
 .Text{
-    color: rgb(37, 37, 99);
+    color: #1995ad;
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 40px;
+}
+
+.Button{
+    background-color: #1995ad;
+    color: #c4dfe6;
+    border-radius: 50px;
+    border: 1px #1995ad solid;
+    padding: 15px 70px;
+    font-size: 15px;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    font-weight: 700;
+    margin-right: 6px;
+}
+
+.Button:hover{
+    background-color: #c4dfe6;
+    color: #1995ad;
+    border: 1.5px #1995ad solid;
+}
+
+.Image{
+    width: 500px;
+}
+
+.ButtonSign{
+    display: none;
 }
 
 .buttons{
@@ -38,92 +58,52 @@
     justify-content: space-between;
 }
 
-.ButtonLog{
-    border: 1px rgb(37, 37, 99) solid;
-    background-color: white;
-    color: rgb(37, 37, 99);    
-}
-
-.ButtonSign{
-    background-color: rgb(37, 37, 99);
-    color: white;   
-    border: 1px rgb(37, 37, 99) solid;    
-}
-
-.ButtonLog,.ButtonSign{
-    font-weight: 600;   
-    border-radius: 50px;    
-    padding: 15px 70px;
-    font-size: 15px;
-    box-sizing: border-box;
-    text-transform: uppercase;
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-}
-
-.ButtonLog:hover{
-    background-color: rgb(37, 37, 99);
-    color: white;   
-    border: 1px rgb(37, 37, 99) solid;
-}
-
-.ButtonSign:hover{
-    border: 1px rgb(37, 37, 99) solid;
-    background-color: white;
-    color: rgb(37, 37, 99);   
-}
-
-.Button:hover{
-    background-color: white;
-    color: rgb(37, 37, 99);
-    border: 1px rgb(37, 37, 99) solid;
-}
-
-.ButtonLog{
-    display: none;
-}
-
-.Image{
-    width: 500px;
-}
 @media (max-width: 1050px) {
     .HomeBlock{   
         padding: 0px 25px;  
     }
+
     .Image{
         width: 350px;
     }
+
     .Title{
         font-size: 25px;
     }
+
     .Text{
         font-size: 15px;
     }
-    .Button{
+
+    .Button, .ButtonSign{
         padding: 15px 40px;
         font-size: 15px;
     }
-
-    .HomeOwn{
-        padding: 74px 0px;   
-    }
 }
 
-@media (max-width: 746px) {  
-    .ButtonLog{
-       display: flex;
+@media (max-width: 690px) {  
+    .ButtonSign{
+        display: inline-block;
+        background-color: #c4dfe6;
+        color: #1995ad;
+        border-radius: 50px;
+        border: 1px #1995ad solid;
+        box-sizing: border-box;
+        text-transform: uppercase;
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        font-weight: 700;
     }
 
-    .ButtonLog,.ButtonSign{   
-        padding: 15px 30px;
+    .ButtonSign:hover{
+        background-color: #1995ad;
+        color: #c4dfe6;
+        border: 1px #1995ad solid;
     }
-}
-
-@media (max-width: 642px) {  
-
-    .ButtonLog,.ButtonSign{   
-        padding: 10px 15px;
-        font-size: 12px;
+    
+    .Button, .ButtonSign{
+        padding: 15px 20px;
+        font-size: 15px;
     }
 }
 
@@ -132,13 +112,15 @@
         flex-wrap: wrap; 
         justify-content: center;
         flex-direction: column-reverse;
+        margin: 25px 0px;
     }
+
     .Textcontent{
         text-align: center;
     }
 
-    .HomeOwn{
-        padding: 54px 0px;   
+    .buttons{
+        justify-content: space-around;
     }
 }
 
@@ -146,19 +128,22 @@
     .Image{
         width: 200px;
     }
+
+    .HomeBlock{   
+        margin: 0px;
+    }
+
     .Title{
         font-size: 18px;
     }
+
     .Text{
         font-size: 14px;
-        margin-bottom: 14px;
-    }
-    .Button{
-        padding: 10px 25px;
-        font-size: 14px;
+        margin-bottom: 15px;
     }
 
-    .HomeOwn{
-        padding: 14px 0px;   
+    .Button, .ButtonSign{
+        padding: 10px 25px;
+        font-size: 14px;
     }
 }

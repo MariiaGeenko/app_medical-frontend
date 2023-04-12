@@ -4,7 +4,7 @@
 }
 
 .HeaderOwn{
-    background-color: white;
+  background-color: #c4dfe6;
 }
 
 .HeaderContent{
@@ -17,25 +17,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 10px;
+    margin-top: 20px;
 }
 
 .Logo{
     cursor: pointer;
-    width: 95px;
-    height: 70px;
+    width: 75px;
+    height: 55px;
 }
 
 .ButtonLog{
-    border: 1px rgb(37, 37, 99) solid;
-    background-color: white;
-    color: rgb(37, 37, 99);    
+    border: 1px #006c84 solid;
+    background-color: #c4dfe6;
+    color: #006c84;
 }
 
 .ButtonSign{
-    background-color: rgb(37, 37, 99);
-    color: white;   
-    border: 1px rgb(37, 37, 99) solid;
+    background-color: #006c84;
+    color: #c4dfe6;   
+    border: 1px #006c84 solid;
     margin-left: 25px;
 }
 
@@ -50,15 +50,15 @@
 }
 
 .ButtonLog:hover{
-    background-color: rgb(37, 37, 99);
-    color: white;   
-    border: 1px rgb(37, 37, 99) solid;
+    background-color: #006c84;
+    color: #c4dfe6;   
+    border: 1px #006c84 solid;
 }
 
 .ButtonSign:hover{
-    border: 1px rgb(37, 37, 99) solid;
-    background-color: white;
-    color: rgb(37, 37, 99);   
+    border: 1px #006c84 solid;
+    background-color: #c4dfe6;
+    color: #006c84;   
 }
 
 .MenuList{
@@ -72,7 +72,7 @@
 .MenuList li{
     margin-left: 20px;
     font-size: 15px;
-    color: rgb(37, 37, 99);  
+    color: #006c84;  
     font-weight: 700;
     cursor: pointer;
 }
@@ -88,7 +88,7 @@
 	left: 0; 
 	width: 0;
 	height: 2px; 
-	background-color: rgb(37, 37, 99);  
+	background-color: #006c84;  
 	content: "";
 	transition: width 0.3s ease-out; 
 }
@@ -97,15 +97,10 @@
 .MenuList li:focus:after {
 	width: 100%; 
 }
+
 @media (max-width: 1250px) {
     .HeaderOwn{   
         padding: 0px 25px;  
-    }
-}
-
-@media (max-width: 746px) {  
-    .ButtonLog,.ButtonSign{
-       display: none;
     }
 }
 
@@ -114,32 +109,48 @@
         height: 60px;
     }
 
-    .Logo{
-        width: 75px;
-        height: 45px;
+    .ButtonLog,.ButtonSign{
+        display: none;
+    }
+
+    .ButtonLog,.ButtonSign{
+        padding: 10px 10px;
+        font-size: 14px;
     }
 
     .HeaderContent{
         justify-content: center;
     }
+
     .MenuList li{
         margin-left: 10px;
         font-size: 14px;
     }
+
     .MenuList{
         padding-left: 0px;
+        margin-right: 0px;
     }
+
     .Header{
         justify-content: center;
     }
 }
 
+
 @media (max-width: 460px) {  
     .Header{
-        height: 90px;
-        align-items: flex-start;
+        height: 70px;
+        margin-top: 0px;
+        padding: 5px 0px;
     }
+
     .HeaderContent{
         flex-wrap: wrap;
+    }
+
+    .Logo{
+        width: 55px;
+        height: 35px;
     }
 }

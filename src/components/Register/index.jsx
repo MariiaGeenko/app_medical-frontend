@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import { Input, Button, Form, Typography, Select} from 'antd';
 import {  useNavigate } from "react-router-dom";
 import {  useState } from 'react';
@@ -16,7 +17,7 @@ export const Register = () => {
 
     const rolesUser=[
         {code:1, role:'Doctor'}, 
-    //    {code:2, role:'Patient'}, 
+        {code:2, role:'Patient'}, 
         {code:3, role:'Pharmacist'}
     ];
 
@@ -28,7 +29,7 @@ export const Register = () => {
 
     const [role, setrole] = useState('');
     const [doctor, setdoctor] = useState({is_online: false, name:'', surname:'', speciality:'', education_organization: '', working_mode:''});
-   // const [patient, setpatient] = useState({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
+    const [patient, setpatient] = useState({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
     const [pharmacy, setpharmacy] = useState({caption:'', address:'', phone:'', email:'', gps_coordinates:'' });
     
     let working_mode=[
@@ -68,7 +69,7 @@ export const Register = () => {
         }   
     }
 
-
+    console.log(patient);
     const SetRoleParams = () => {
         switch(role) {
             case 1: 
@@ -82,9 +83,9 @@ export const Register = () => {
                                 message: 'Enter your Surname please!'
                             }
                         ]}
-                        style={{width:'500px'}}
+                        style={{width:'500px', color:"#006c84"}}
                         >
-                            <Input style={{display:(role!=='')?null:'none'}} addonBefore="Surname" onChange={(e)=> setdoctor({...doctor,surname: e.target.value})}/>
+                            <Input style={{display:(role!=='')?null:'none', color:"#006c84"}} addonBefore="Surname" onChange={(e)=> setdoctor({...doctor,surname: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Name"
@@ -94,7 +95,7 @@ export const Register = () => {
                                 message: 'Enter your Name please!'
                             }
                         ]}
-                        style={{width:'500px'}}
+                        style={{width:'500px', color:"#006c84"}}
                         >
                             <Input addonBefore="Name" onChange={(e)=> setdoctor({...doctor,name: e.target.value})}/>
                         </Form.Item>
@@ -115,12 +116,12 @@ export const Register = () => {
                         rules={[
                             {
                                 required: true,
-                                message: 'Enter your Education please!'
+                                message: 'Enter your Education organization please!'
                             }
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Education" onChange={(e)=> setdoctor({...doctor,education_organization: e.target.value})}/>
+                            <Input addonBefore="Education organization" onChange={(e)=> setdoctor({...doctor,education_organization: e.target.value})}/>
                         </Form.Item>
                         
         
@@ -162,7 +163,82 @@ export const Register = () => {
                           </Form.Item>
                     </div>
                 )
-          
+            case 2:
+                return (
+                    <div>
+                        <Form.Item
+                        name="surname"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Enter your Surname please!'
+                            }
+                        ]}
+                        style={{width:'500px'}}
+                        >
+                            <Input addonBefore="Surname" onChange={(e)=> setpatient({...patient,surname: e.target.value})}/>
+                        </Form.Item>
+                        <Form.Item
+                        name="Name"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Enter your Name please!'
+                            }
+                        ]}
+                        style={{width:'500px'}}
+                        >
+                            <Input addonBefore="Name"  onChange={(e)=> setpatient({...patient,name: e.target.value})}/>
+                        </Form.Item>
+                        <Form.Item
+                        name="Insurance number"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Enter your Insurance number please!'
+                            }
+                        ]}
+                        style={{width:'500px'}}
+                        >
+                            <Input addonBefore="Insurance number" onChange={(e)=> setpatient({...patient, insurance_number: e.target.value})}/>
+                        </Form.Item>
+                        <Form.Item
+                        name="Diagnosis"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Enter your diagnosis please!'
+                            }
+                        ]}
+                        style={{width:'500px'}}
+                        >
+                            <Input addonBefore="Diagnosis" onChange={(e)=> setpatient({...patient,diagnosis: e.target.value})}/>
+                        </Form.Item>
+                        <Form.Item
+                        name="Med_card"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Enter your Med_card please!'
+                            }
+                        ]}
+                        style={{width:'500px'}}
+                        >
+                            <Input addonBefore="Med card" onChange={(e)=> setpatient({...patient,speciality: e.target.value})}/>
+                        </Form.Item>
+                        <Button onClick={()=>{
+                            setpatient({...patient, receipt: `${Math.round(Math.random()*3)+''+Math.round(Math.random()*4)+''+Math.round(Math.random()*5)+''+Math.round(Math.random()*6)+''+Math.round(Math.random()*7)}`})
+                           
+                        }}>Add receipt</Button>
+                        <br/>
+                        <br/>
+                        <div style={{display:'flex', gap:'20px'}}>
+                            <Input style={{ paddingBottom:'20px', display:(patient.receipt!=='')?null:'none', fontFamily:'c39', fontSize:'56px'}} addonBefore="Receipt" value={patient.receipt}/>
+                            <Button style={{ display:(patient.receipt!=='')?null:'none' }}>Add medicines</Button>
+                        </div>
+                   
+                    </div>
+                )
             case 3: 
                 return (
                     <div>
@@ -214,42 +290,6 @@ export const Register = () => {
                         >
                             <Input addonBefore="Email Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,email: e.target.value})}/>
                         </Form.Item>
-                        <Paragraph>Working Mode</Paragraph>
-                        <Form.Item
-                        name="Working_Mode"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Enter your Working Mode please!'
-                            }
-                        ]}
-                        style={{width:'500px'}}
-                        >
-                        <Select allowClear="true"
-                            style={{width:'400px'}}
-                              showSearch
-                              optionFilterProp="children"
-                              filterOption={(input, option) => option.children.includes(input)}
-                              filterSort={(optionA, optionB) =>
-                                  optionA.children.localeCompare(optionB.children)
-                              }
-                              onChange={(value) => {
-                                for (let i=0;i<=working_mode.length-1;i++) {
-                                  if (working_mode[i].codeMode===value) {
-                                    setdoctor({...doctor, working_mode: value});
-                                  }
-                                }
-                                if (value===undefined || value==='' ){
-                                    setdoctor({...doctor, working_mode: ''});
-                                }
-                              }}
-                          >
-                              {working_mode.map((element) => {
-                                  return <Option key={element.codeMode}  value={element.codeMode} >{element.mode}</Option>
-                              }
-                              )}
-                          </Select>
-                          </Form.Item>
                     </div>
                 )
             
@@ -259,105 +299,105 @@ export const Register = () => {
 
 
     return (
-      
-        <div className={s.wrapper}>
-        <Form className={s.form}  form={form} layout="vertical" name="basic" 
-            
-            labelCol={{
-                span: 8,
-            }}
-            wrapperCol={{
-                span: 16,
-            }}
         
-            initialValues={{
-                remember: true
-            }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
-           
+        <div className={s.wrapper}>
             
-            >
-                        <h5 className={s.title}>Registration</h5> 
-                        <Form.Item
-                        label='Login'
-                        name="login"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Enter your login please!'
-                            }
-                        ]}
-                        >
-                        <Input/>
-                        </Form.Item>
-                        <Form.Item
-                        label='Password'
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Enter your password please!'
-                            }
-                        ]}
-                        >
-                        <Input.Password/>
-                        </Form.Item>
-                        <Form.Item
-                        label='Role'
-                        name="role"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Define your role please!'
-                            }
-                        ]}
-                        >
-                            <Select allowClear="true"
-                              showSearch
-                              optionFilterProp="children"
-                              filterOption={(input, option) => option.children.includes(input)}
-                              filterSort={(optionA, optionB) =>
-                                  optionA.children.localeCompare(optionB.children)
-                              }
-                              onChange={(value) => {
-                                for (let i=0;i<=rolesUser.length-1;i++) {
-                                  if (rolesUser[i].code===value) {
-                                    setrole(value);
-                                  }
+            <Form className={s.form}  form={form} layout="vertical" name="basic" 
+                
+                labelCol={{
+                    span: 8,
+                }}
+                wrapperCol={{
+                    span: 16,
+                }}
+            
+                initialValues={{
+                    remember: true
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}         
+                
+                >           
+                            <Form.Item  
+                            label={ <p style={{fontSize:"18px", marginBottom:"3px", color:"#006c84", fontWeight:"500"}}>Login</p>}
+                            name="login"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Enter your login please!',
                                 }
-                                if (value===undefined || value==='' ){
-                                    setrole('');
+                            ]}
+                            >
+                            <Input style={{color:"#006c84"}}/>
+                            </Form.Item>
+                            <Form.Item
+                            label={ <p style={{fontSize:"18px", marginBottom:"3px", color:"#006c84", fontWeight:"500"}}>Password</p>}
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Enter your password please!'
                                 }
-                              }}
-                          >
-                              {rolesUser.map((element) => {
-                                  return <Option key={element.code}  value={element.code} >{element.role}</Option>
-                              }
-                              )}
-                          </Select>
-                        </Form.Item>
-                        {SetRoleParams()}
-                        <Form.Item
-                        >
-                               <div className={s.buttons}>
-                                <Button className={s.button} htmlType="submit">Save</Button>
-                                <Button className={s.button} onClick={()=> {
-                                    form.resetFields();
-                                    setrole('');
-                                    setdoctor({is_online: false, name:'', surname:'', speciality:'', education_organization: '', working_mode:'' })
-                                   // setpatient({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
-                                    setpharmacy({caption:'', address:'', phone:'', email:'', gps_coordinates:'' });
-                                }} >
-                                    Reset options
-                                </Button> 
-                            </div>
-                        </Form.Item>
-                      
-
-                        
-            </Form>
+                            ]}
+                            >
+                            <Input.Password style={{color:"#006c84"}}/>
+                            </Form.Item>
+                            <Form.Item
+                            label={ <p style={{fontSize:"18px", marginBottom:"3px", color:"#006c84", fontWeight:"500"}}>Role</p>}
+                            name="role"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Define your role please!'
+                                }
+                            ]}
+                            >
+                                <Select allowClear="true"
+                                style={{color:"#006c84"}}
+                                showSearch
+                                optionFilterProp="children"
+                                filterOption={(input, option) => option.children.includes(input)}
+                                filterSort={(optionA, optionB) =>
+                                    optionA.children.localeCompare(optionB.children)
+                                }
+                                onChange={(value) => {
+                                    for (let i=0;i<=rolesUser.length-1;i++) {
+                                    if (rolesUser[i].code===value) {
+                                        setrole(value);
+                                    }
+                                    }
+                                    if (value===undefined || value==='' ){
+                                        setrole('');
+                                    }
+                                }}
+                            >
+                                {rolesUser.map((element) => {
+                                    return <Option style={{color:"#006c84"}} key={element.code}  value={element.code} >{element.role}</Option>
+                                }
+                                )}
+                            </Select>
+                            </Form.Item>
+                            {SetRoleParams()}
+                            <Form.Item
+                            >
+                            <div className={s.buttons}>
+                                    <button className={s.buttonSave} htmlType="submit">Save</button>
+                                    <buttom className={s.buttonReset} onClick={()=> {
+                                        form.resetFields();
+                                        setrole('');
+                                        setdoctor({is_online: false, name:'', surname:'', speciality:'', education_organization: '', working_mode:'' })
+                                        setpatient({is_online:false, name:'', surname:'', insurance_number:'', diagnosis:'', medical_card_stored_in_clinic: '', receipt: '', medicines:[] });
+                                        setpharmacy({caption:'', address:'', phone:'', email:'', gps_coordinates:'' });
+                                    }} >
+                                        Reset options
+                                    </buttom> 
+                                </div>
+                            </Form.Item>                
+                </Form>
+            <div className="image">
+                <img src="sign.png" alt="registration" width="350px" height="350px"/>
             </div>
+        </div>
 
-            )
+    )
 }
