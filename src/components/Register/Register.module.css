@@ -1,42 +1,42 @@
-.wrapper{
+.wrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 32.5px 40px;
-    border-radius: 10%;
     margin: 73.5px 0px;
 }
 
-.form{
+.form {
     display: flex;
     flex-direction: column;
-    width: 370px;    
+    width: 370px;
 }
 
-.buttons{
+.buttons {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.buttonReset{
+.buttonReset {
     border: 1px #006c84 solid;
     background-color: #c4dfe6;
     color: #006c84;
 }
 
-.buttonSave{
+.buttonSave {
     background-color: #006c84;
-    color: #c4dfe6;   
+    color: #c4dfe6;
     border: 1px #006c84 solid;
 }
 
-.buttonReset,.buttonSave{
+.buttonReset,
+.buttonSave {
     width: 110px;
     height: 40px;
     font-size: 15px;
     box-sizing: border-box;
-    cursor: pointer;    
+    cursor: pointer;
     border-radius: 50px;
     transition: all 0.3s ease 0s;
     font-weight: 700;
@@ -46,22 +46,83 @@
     margin-top: 15px;
 }
 
-.buttonReset:hover{
+.buttonReset:hover {
     background-color: #006c84;
-    color: #c4dfe6;   
+    color: #c4dfe6;
     border: 1px #006c84 solid;
 }
 
-.buttonSave:hover{
+.buttonSave:hover {
     border: 1px #006c84 solid;
     background-color: #c4dfe6;
-    color: #006c84;   
+    color: #006c84;
 }
 
-.title{
+.title {
     font-size: 28px;
     color: rgba(0, 0, 0, 0.88);
     font-weight: 600;
     font-size: 18px;
     line-height: 1.5;
+}
+
+.label {
+    font-size: 18px;
+    margin-bottom: 3px;
+    color: #006c84;
+    font-weight: 500;
+}
+
+@media (max-width: 790px) {
+    .wrapper {
+        padding: 0px 25px;
+    }
+}
+
+@media (max-width: 750px) {
+    .form {
+        width: 300px;
+    }
+
+    .image {
+        width: 250px;
+        height: 250px;
+    }
+
+    .label {
+        font-size: 14px;
+    }
+
+    .buttonReset,
+    .buttonSave {
+        width: 90px;
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .input{
+        width: 300px;
+    }
+}
+
+@media (max-width: 598px) {
+    .image {
+        display: none;
+    }
+
+    .wrapper {
+        padding: 0px;
+        margin: 0px auto;
+    }    
+
+    .buttonReset,
+    .buttonSave {
+        width: 110px;
+        height: 40px;
+        font-size: 15px;
+    }
+
+    .form_item{
+        margin-bottom: 8px;
+    }
 }

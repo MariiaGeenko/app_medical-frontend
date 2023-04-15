@@ -74,7 +74,7 @@ export const Register = () => {
         switch(role) {
             case 1: 
                 return (
-                    <div>
+                    <div className ={s.doctor}>
                         <Form.Item
                         name="surname"
                         rules={[
@@ -85,7 +85,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px', color:"#006c84"}}
                         >
-                            <Input style={{display:(role!=='')?null:'none', color:"#006c84"}} addonBefore="Surname" onChange={(e)=> setdoctor({...doctor,surname: e.target.value})}/>
+                            <Input className={s.input} style={{display:(role!=='')?null:'none'}} addonBefore="Surname" onChange={(e)=> setdoctor({...doctor,surname: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Name"
@@ -97,7 +97,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px', color:"#006c84"}}
                         >
-                            <Input addonBefore="Name" onChange={(e)=> setdoctor({...doctor,name: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Name" onChange={(e)=> setdoctor({...doctor,name: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Speciality"
@@ -109,7 +109,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Speciality"  onChange={(e)=> setdoctor({...doctor,speciality: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Speciality"  onChange={(e)=> setdoctor({...doctor,speciality: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Education_organization"
@@ -121,12 +121,12 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Education organization" onChange={(e)=> setdoctor({...doctor,education_organization: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Education organization" onChange={(e)=> setdoctor({...doctor,education_organization: e.target.value})}/>
                         </Form.Item>
                         
         
                         <Paragraph>Working Mode</Paragraph>
-                        <Form.Item
+                        <Form.Item className={s.input}
                         name="Working_Mode"
                         rules={[
                             {
@@ -137,7 +137,7 @@ export const Register = () => {
                         style={{width:'500px'}}
                         >
                         <Select allowClear="true"
-                            style={{width:'400px'}}
+                            style={{width:'300px'}}
                               showSearch
                               optionFilterProp="children"
                               filterOption={(input, option) => option.children.includes(input)}
@@ -176,7 +176,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Surname" onChange={(e)=> setpatient({...patient,surname: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Surname" onChange={(e)=> setpatient({...patient,surname: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Name"
@@ -188,7 +188,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Name"  onChange={(e)=> setpatient({...patient,name: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Name"  onChange={(e)=> setpatient({...patient,name: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Insurance number"
@@ -200,7 +200,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Insurance number" onChange={(e)=> setpatient({...patient, insurance_number: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Insurance number" onChange={(e)=> setpatient({...patient, insurance_number: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Diagnosis"
@@ -212,7 +212,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Diagnosis" onChange={(e)=> setpatient({...patient,diagnosis: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Diagnosis" onChange={(e)=> setpatient({...patient,diagnosis: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Med_card"
@@ -224,7 +224,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Med card" onChange={(e)=> setpatient({...patient,speciality: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Med card" onChange={(e)=> setpatient({...patient,speciality: e.target.value})}/>
                         </Form.Item>
                         <Button onClick={()=>{
                             setpatient({...patient, receipt: `${Math.round(Math.random()*3)+''+Math.round(Math.random()*4)+''+Math.round(Math.random()*5)+''+Math.round(Math.random()*6)+''+Math.round(Math.random()*7)}`})
@@ -233,10 +233,9 @@ export const Register = () => {
                         <br/>
                         <br/>
                         <div style={{display:'flex', gap:'20px'}}>
-                            <Input style={{ paddingBottom:'20px', display:(patient.receipt!=='')?null:'none', fontFamily:'c39', fontSize:'56px'}} addonBefore="Receipt" value={patient.receipt}/>
+                            <Input className={s.input} style={{ paddingBottom:'20px', display:(patient.receipt!=='')?null:'none', fontFamily:'c39', fontSize:'56px'}} addonBefore="Receipt" value={patient.receipt}/>
                             <Button style={{ display:(patient.receipt!=='')?null:'none' }}>Add medicines</Button>
-                        </div>
-                   
+                        </div>                   
                     </div>
                 )
             case 3: 
@@ -252,7 +251,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Caption Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,caption: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Caption Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,caption: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Address"
@@ -264,7 +263,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Address Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,address: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Address Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,address: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Phone"
@@ -276,7 +275,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Phone Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,phone: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Phone Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,phone: e.target.value})}/>
                         </Form.Item>
                         <Form.Item
                         name="Email"
@@ -288,7 +287,7 @@ export const Register = () => {
                         ]}
                         style={{width:'500px'}}
                         >
-                            <Input addonBefore="Email Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,email: e.target.value})}/>
+                            <Input className={s.input} addonBefore="Email Pharmacy" onChange={(e)=> setpharmacy({...pharmacy,email: e.target.value})}/>
                         </Form.Item>
                     </div>
                 )
@@ -318,8 +317,8 @@ export const Register = () => {
                 onFinishFailed={onFinishFailed}         
                 
                 >           
-                            <Form.Item  
-                            label={ <p style={{fontSize:"18px", marginBottom:"3px", color:"#006c84", fontWeight:"500"}}>Login</p>}
+                            <Form.Item  className={s.form_item}
+                            label={ <p className={s.label}>Login</p>}
                             name="login"
                             rules={[
                                 {
@@ -330,8 +329,8 @@ export const Register = () => {
                             >
                             <Input style={{color:"#006c84"}}/>
                             </Form.Item>
-                            <Form.Item
-                            label={ <p style={{fontSize:"18px", marginBottom:"3px", color:"#006c84", fontWeight:"500"}}>Password</p>}
+                            <Form.Item className={s.form_item}
+                            label={ <p className={s.label}>Password</p>}
                             name="password"
                             rules={[
                                 {
@@ -342,8 +341,8 @@ export const Register = () => {
                             >
                             <Input.Password style={{color:"#006c84"}}/>
                             </Form.Item>
-                            <Form.Item
-                            label={ <p style={{fontSize:"18px", marginBottom:"3px", color:"#006c84", fontWeight:"500"}}>Role</p>}
+                            <Form.Item className={s.form_item}
+                            label={ <p className={s.label}>Role</p>}
                             name="role"
                             rules={[
                                 {
@@ -394,8 +393,8 @@ export const Register = () => {
                                 </div>
                             </Form.Item>                
                 </Form>
-            <div className="image">
-                <img src="sign.png" alt="registration" width="350px" height="350px"/>
+            <div>
+                <img className={s.image} src="sign.png" alt="registration" width="350px" height="350px"/>
             </div>
         </div>
 

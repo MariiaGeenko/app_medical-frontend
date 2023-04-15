@@ -121,18 +121,35 @@ a:hover{
         flex-wrap: wrap;
     }
 
-    .item_list, .item_list_down:not(:last-child){
-        margin-right: 10px;
-    }
-
     .item_list_down li:not(:last-child){
         margin-right: 10px;
     }
 }
 
-@media (max-width: 928px) {
+@media (max-width: 790px) {
     .item_list_down li{
-        flex: 0 1 100%;
-        
+        flex: 0 1 100%;      
+        text-align: center;  
+    }
+
+    .item_list_down{
+        flex-wrap: wrap;
+    }
+
+    .item_list_down li:not(:last-child){
+        margin-right: 0px;
+    }
+
+    .list_text, .list_social{
+        margin-top: 10px;
+    }
+
+    .social_list li{
+        padding-right: 0px;
+    }
+
+    .logo_footer{
+        font-size: 28px;
+        margin-bottom: 10px;
     }
 }

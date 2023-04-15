@@ -81,7 +81,7 @@
     }
 }
 
-@media (max-width: 690px) {  
+@media (max-width: 690px) {    
     .ButtonSign{
         display: inline-block;
         background-color: #c4dfe6;
@@ -130,7 +130,7 @@
     }
 
     .HomeBlock{   
-        margin: 0px;
+        margin: 25px 0px;
     }
 
     .Title{

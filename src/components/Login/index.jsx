@@ -124,8 +124,8 @@ export const Login= () => {
             
             >
             
-                        <Form.Item
-                        label={ <p style={{fontSize:"18px", marginBottom:"3px", color:"#006c84", fontWeight:"500"}}>Login</p>}
+                        <Form.Item className={s.form_item}
+                        label={ <p className={s.label}>Login</p>}
                             name="login"
                             rules={[
                                 {
@@ -136,8 +136,8 @@ export const Login= () => {
                         >
                         <Input style={{color:"#006c84"}}/>
                         </Form.Item>
-                        <Form.Item
-                        label={ <p style={{fontSize:"18px", marginBottom:"3px", color:"#006c84", fontWeight:"500"}}>Password</p>}
+                        <Form.Item className={s.form_item}
+                        label={ <p className={s.label}>Password</p>}
                             name="password"
                             rules={[
                                 {
@@ -148,8 +148,8 @@ export const Login= () => {
                         >
                         <Input.Password style={{color:"#006c84"}}/>
                         </Form.Item>
-                        <Form.Item
-                        label={ <p style={{fontSize:"18px", marginBottom:"3px", color:"#006c84", fontWeight:"500"}}>Role</p>}
+                        <Form.Item className={s.form_item}
+                        label={ <p className={s.label}>Role</p>}
                             name="role"
                             rules={[
                                 {
@@ -182,8 +182,8 @@ export const Login= () => {
             </Form>
             <ModalWarning open={IsModalOpen.warning}  onCancelModal={() => {setIsModalOpen({...IsModalOpen, warning: false })}} mess={IsModalOpen.warningText}/>
 
-            <div className="image">
-                <img src="log.png" alt="registration" width="350px" height="350px"/>
+            <div>
+                <img src="log.png" alt="registration" width="350px" height="350px" className={s.image}/>
             </div>
         </div>
         

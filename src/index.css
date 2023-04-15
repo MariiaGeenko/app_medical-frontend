@@ -25,3 +25,9 @@ code {
 .content{
   background-color: #c4dfe6;
 }
+
+@media (max-width: 530px){
+  .container{
+    margin: 0px auto;
+  }
+}
