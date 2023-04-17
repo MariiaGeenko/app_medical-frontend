@@ -47,7 +47,7 @@ export const DoctorOffice= () => {
   useEffect(()=> {
     async function fetchData(url) {
       //let pageData=document.getElementsByClassName('ant-pagination-item-active')[0].attributes.title.value;
-      const response = await fetch(`http://localhost:5588/api/doctor/${url}`);
+      const response = await fetch(`http://localhost:5588/api/doctors/${url}`);
       let dataS = await response.json();
       console.log(dataS);
       return dataS
@@ -77,91 +77,11 @@ export const DoctorOffice= () => {
         }
       }
     }
-    console.log(receiptsOwn1);
+ 
     setreceiptsOwn(receiptsOwn1)
   },[receipts,drugs,choosenPatient])
 
-  console.log(receiptsOwn);
-/*
-  useEffect(()=> {
-    let receiptsOwn=[];
-      for(let j=0;j<=receipts.length-1;j++) {
-        for(let i=0;i<=drugs.length-1;i++) {
-            if(drugs[i].id===receipts.drug_id) {
-              receiptsOwn.push({})
-             
-              // setdoctorInfo({...doctorInfo, education: doctors[i].organization_name,
-            ///    speciality: doctors[i].caption_speciality, patients:patients })
-             // doctorsOwn.push({key: doctors[i].id, doctor: `${doctors[i].surname} ${doctors[i].name}`,
-              //  speciality: doctors[i].caption_speciality, education: doctors[i].organization_name,    diagnosis: sicklists[i].diagnosis_name, datein: sicklists[i].datein, dateout: sicklists[i].dateout, receipt_name: sicklists[i].receipt_name,
-              //  drug: drugs[k].name, receipt_status: sicklists[i].receipt_status
-            };
-          }
-        }
-     // setreceipts(doctorsOwn);
-    },[doctors, doctorInfo]);
-    
-*/
-  /*
-  const doctorInfo={
-        surname:'Petrov',
-        name:'Petr',
-        education: 'some education',
-        speciality: 'some speciality',
-        working_mode:[
-            {codeMode:1, mode: 'morning from 9 AM to 12 AM even days '}, // четные дни
-            {codeMode:2, mode: 'evening from 2 PM to 6 PM odd days '}, // нечетные дни
-            {codeMode:3, mode: 'morning from 9 AM to 12 AM odd days '},
-            {codeMode:4, mode: 'evening from 2 PM to 6 PM even days '}
-        ],
-        clinics:[
-            {code:1, caption: 'some clinic 1 '}, 
-            {code:2, caption: 'some clinic 2 '},
-            {code:3, caption: 'some clinic 3 '},
-            {code:4, caption: 'some clinic 4 '}
-        ],
-        statuses:[
-            {code:1, caption: 'some status 1 '}, 
-            {code:2, caption: 'some status 2 '},
-            {code:3, caption: 'some status 3 '},
-            {code:4, caption: 'some status 4 '}
-        ],
-        patients:[
-            {id:1,  surname:'Ivanov', name:'Ivan', insurance_number: 567432, diagnosis: 'COVID-19 identified (U07.1)',
-                receipt: [
-                {codeReceipt: '123456789', status: 'issued'},//выдан
-                {codeReceipt: '987654321', status: 'archive'}
-              ], drugs: [
-                {codeDrug: 'Ingaron', pharmacies: [{key: 1, codePharmacy: 'pharmacy 1', countDrug: 10}, {key: 2, codePharmacy: 'pharmacy 2' , countDrug: 6}]},
-                {codeDrug: 'Arbidol', pharmacies: [{key: 3, codePharmacy: 'pharmacy 3', countDrug: 13}, {key: 4,codePharmacy: 'pharmacy 4',  countDrug: 6}]}
-              ] 
-            }, 
-            {id:2,  surname:'Isaev', name:'Mihail', insurance_number: 267432, diagnosis: 'COVID-19 identified (U07.2)',
-                receipt: [
-                {codeReceipt: '223456789', status: 'issued'},//выдан
-                {codeReceipt: '997654321', status: 'issued'}
-              ], drugs: [
-                {codeDrug: 'Ingaron', pharmacies: [{key: 1, codePharmacy: 'pharmacy 1', countDrug: 10}, {key: 2, codePharmacy: 'pharmacy 2' , countDrug: 6}]},
-                {codeDrug: 'Arbidol', pharmacies: [{key: 3, codePharmacy: 'pharmacy 3', countDrug: 13}, {key: 4,codePharmacy: 'pharmacy 4',  countDrug: 6}]}
-              ] 
-            },
-            {id:2,  surname:'Isaev', name:'Mihail', insurance_number: 267432, diagnosis: 'COVID-19 identified (U07.2)',
-                receipt: [
-                {codeReceipt: '223456789', status: 'issued'},//выдан
-                {codeReceipt: '997654321', status: 'issued'}
-                  ], drugs: [
-                    {codeDrug: 'Ingaron', pharmacies: [{key: 1, codePharmacy: 'pharmacy 1', countDrug: 10}, {key: 2, codePharmacy: 'pharmacy 2' , countDrug: 6}]},
-                    {codeDrug: 'Arbidol', pharmacies: [{key: 3, codePharmacy: 'pharmacy 3', countDrug: 13}, {key: 4,codePharmacy: 'pharmacy 4',  countDrug: 6}]}
-                  ] 
-              }
-        ],
-      
-        
-    }
-    */
-
-  //  const [drug, setdrug] = useState({drugCode: '', info:[]});
-  //  const [receipt, setreceipt] = useState({receiptCode: '', status:''});
+  const [receipt, setreceipt] = useState({receiptCode: '', status:''});
 
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -257,11 +177,6 @@ export const DoctorOffice= () => {
       )
     });
 
-  //  let columns= [
-   //   {title: 'Pharmacy', key:'codePharmacy',  dataIndex: 'codePharmacy', width: '15%',  ...getColumnSearchProps('codePharmacy'),  sorter: (a, b) =>  a.codePharmacy.toLowerCase().localeCompare(b.codePharmacy.toLowerCase()), sortDirections: ['descend', 'ascend']},
-   //   {title: 'Medicines count', key:'countDrug', dataIndex: 'countDrug', width: '0%',  ...getColumnSearchProps('countDrug'), sorter: (a, b) => a.countDrug - b.countDrug, sortDirections: ['descend', 'ascend']}
-   // ];
-   console.log(receiptsOwn);
    
    let columns= [
     {title: 'Receipt', className:`${s.receiptCode}`,key:'receipt_name', dataIndex: 'receipt_name', width: '15%' , ...getColumnSearchProps('receipt_name'),  sorter: (a, b) =>  a.receipt_name.toLowerCase().localeCompare(b.receipt_name.toLowerCase()), sortDirections: ['descend', 'ascend']},
@@ -353,33 +268,3 @@ export const DoctorOffice= () => {
     
       )  
 }
-
-/*
-<Paragraph>Patients</Paragraph>
-                            <Select allowClear="true"
-                              showSearch
-                              optionFilterProp="children"
-                              filterOption={(input, option) => option.children.includes(input)}
-                              filterSort={(optionA, optionB) =>
-                                  optionA.children.localeCompare(optionB.children)
-                              }
-                              style={{width:'400px'}}
-                              onChange={(value) => {
-                                for (let i=0;i<=doctorInfo.receipt.length-1;i++) {
-                                  if (doctorInfo.receipt[i].codeReceipt===value) {
-                                    setreceipt({...receipt, receiptCode:value, status: doctorInfo.receipt[i].status});
-                                  }
-                                }
-                                if (value===undefined){
-                                  setreceipt({...receipt, receiptCode:''});
-                                }
-                              }}
-                            >
-                              {doctorInfo.receipt.map((element) => {
-                                  return <Option style={{fontFamily:'c39', fontSize:'56px'}} key={element.codeReceipt}  value={element.codeReceipt} >{element.codeReceipt}</Option>
-                              }
-                              )}
-                          </Select>
-                          <Input style={{display:(receipt.receiptCode!=='')?null:'none'}} addonBefore="Receipt's status" value={`${receipt.status}`}/>
-                <br/>
-                */

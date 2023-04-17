@@ -162,24 +162,29 @@ export const Login= () => {
                         })
             
                 };
-            //let params={login: values.login, password: values.password,
+            let params={login: values.login, password: values.password,
             //    role: values.role};
-            /*
-            const res=await fetch(`${API_URL}/signIn?login=${params.login}&password=${params.password}&role=${params.role}`, {
+        */
+       /*
+            let params={login: values.login, password: values.password,
+                    role: values.role};
+         //   const res=await fetch(`${API_URL}/api/signIn?login=${params.login}&password=${params.password}&role=${params.role}`);
+            const res=await fetch(`${API_URL}/api/signIn?login=${params.login}&password=${params.password}&role${params.role}`,{
+            
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json;charset=utf-8'},
-                body: JSON.stringify(params)
+             //   body: JSON.stringify(params)
                         
             })
             const dataAccess= await res.json();
             if (dataAccess.success) {
-             //   saveData(dataAccess.data); 
+                saveData(dataAccess.data); 
                
                 
             } else {
                 setIsModalOpen({...IsModalOpen, warning: true , warningText: "Невозможно найти такого пользователя!"})
             }
-            */
+        */
            saveData(values);
     
         }
